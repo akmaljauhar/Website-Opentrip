@@ -77,20 +77,20 @@ export default function Settings() {
 
   return (
     <div>
-      <div className="mb-8">
-        <h1 className="text-2xl font-extrabold text-gray-900">Settings</h1>
-        <p className="text-gray-500 text-sm mt-1">Manage your site configuration</p>
+      <div className="mb-6">
+        <h1 className="text-xl font-extrabold text-gray-900">Settings</h1>
+        <p className="text-gray-500 text-xs mt-0.5">Manage your site configuration</p>
       </div>
 
-      <div className="space-y-6">
-        <div className="bg-card rounded-2xl border border-gray-100 p-5 sm:p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-2">Site Logo</h2>
-          <p className="text-sm text-gray-500 mb-6">
+      <div className="space-y-4">
+        <div className="bg-card rounded-xl border border-gray-100 p-4 sm:p-5">
+          <h2 className="text-base font-bold text-gray-900 mb-1">Site Logo</h2>
+          <p className="text-xs text-gray-500 mb-4">
             Upload a logo that will appear in the top-left corner of the website.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-start gap-6">
-            <div className="w-24 h-24 bg-gray-100 rounded-2xl flex items-center justify-center overflow-hidden border-2 border-dashed border-gray-200">
+          <div className="flex flex-col sm:flex-row items-start gap-4">
+            <div className="w-20 h-20 bg-gray-100 rounded-xl flex items-center justify-center overflow-hidden border-2 border-dashed border-gray-200">
               {logoUrl ? (
                 <img
                   src={getSupabaseImageUrl(logoUrl)}
@@ -110,7 +110,7 @@ export default function Settings() {
 
             <div className="flex-1">
               <label className="cursor-pointer">
-                <span className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-primary bg-primary/5 border border-primary/20 rounded-xl hover:bg-primary/10 transition-colors">
+                <span className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-primary bg-primary/5 border border-primary/20 rounded-lg hover:bg-primary/10 transition-colors">
                   <Upload size={16} />
                   {uploading ? 'Uploading...' : logoUrl ? 'Change Logo' : 'Upload Logo'}
                 </span>
@@ -127,53 +127,53 @@ export default function Settings() {
                   <Check size={14} /> Logo saved successfully!
                 </div>
               )}
-              <p className="text-xs text-gray-400 mt-3">Recommended: Square image, at least 200x200px</p>
+              <p className="text-[10px] text-gray-400 mt-2">Recommended: Square image, at least 200x200px</p>
             </div>
           </div>
         </div>
 
-        <div className="bg-card rounded-2xl border border-gray-100 p-5 sm:p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-2">Contact Information</h2>
-          <p className="text-sm text-gray-500 mb-6">
+        <div className="bg-card rounded-xl border border-gray-100 p-4 sm:p-5">
+          <h2 className="text-base font-bold text-gray-900 mb-1">Contact Information</h2>
+          <p className="text-xs text-gray-500 mb-4">
             These details will be displayed in the footer of the website.
           </p>
 
-          <div className="space-y-4 max-w-lg">
+          <div className="space-y-3 max-w-lg">
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Email</label>
+              <label className="block text-xs font-semibold text-gray-700 mb-1.5">Email</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
                 placeholder="info@citravel.com"
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Phone</label>
+              <label className="block text-xs font-semibold text-gray-700 mb-1.5">Phone</label>
               <input
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
                 placeholder="+62 812 3456 7890"
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Address</label>
+              <label className="block text-xs font-semibold text-gray-700 mb-1.5">Address</label>
               <input
                 type="text"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
                 placeholder="Jakarta, Indonesia"
               />
             </div>
-            <div className="pt-2">
+            <div className="pt-1">
               <button
                 onClick={handleContactSave}
                 disabled={contactSaving}
-                className="inline-flex items-center gap-2 bg-accent text-white px-6 py-2.5 rounded-xl text-sm font-bold hover:bg-accent-dark transition-all duration-200 disabled:opacity-50 shadow-sm shadow-accent/30"
+                className="inline-flex items-center gap-1.5 bg-accent text-white px-5 py-2 rounded-lg text-xs font-bold hover:bg-accent-dark transition-all duration-200 disabled:opacity-50 shadow-sm shadow-accent/30"
               >
                 <Save size={16} />
                 {contactSaving ? 'Saving...' : 'Save Contact Info'}

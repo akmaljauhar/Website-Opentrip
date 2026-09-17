@@ -9,18 +9,18 @@ export default function EventDetail() {
   if (loading) {
     return (
       <div className="bg-surface min-h-screen">
-        <div className="bg-primary py-16">
+        <div className="bg-primary py-10">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="animate-pulse space-y-4">
-              <div className="h-6 bg-white/10 rounded w-32" />
-              <div className="h-10 bg-white/10 rounded w-1/2" />
+            <div className="animate-pulse space-y-3">
+              <div className="h-5 bg-white/10 rounded w-32" />
+              <div className="h-8 bg-white/10 rounded w-1/2" />
             </div>
           </div>
         </div>
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="animate-pulse space-y-6">
-            <div className="bg-gray-200 rounded-2xl h-80" />
-            <div className="h-6 bg-gray-200 rounded w-1/3" />
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="animate-pulse space-y-4">
+            <div className="bg-gray-200 rounded-xl h-64" />
+            <div className="h-5 bg-gray-200 rounded w-1/3" />
             <div className="h-4 bg-gray-200 rounded w-3/4" />
           </div>
         </div>
@@ -32,10 +32,10 @@ export default function EventDetail() {
     return (
       <div className="bg-surface min-h-screen flex items-center justify-center px-4">
         <div className="text-center">
-          <h1 className="text-6xl font-extrabold text-primary/20 mb-4">404</h1>
-          <p className="text-gray-500 text-lg mb-6">Event not found.</p>
-          <Link to="/events" className="inline-flex items-center gap-2 text-primary font-semibold hover:text-primary-light">
-            <ArrowLeft size={18} /> Back to Events
+          <h1 className="text-5xl font-extrabold text-primary/20 mb-3">404</h1>
+          <p className="text-gray-500 mb-4">Event not found.</p>
+          <Link to="/events" className="inline-flex items-center gap-2 text-primary font-semibold hover:text-primary-light text-sm">
+            <ArrowLeft size={16} /> Back to Events
           </Link>
         </div>
       </div>
@@ -57,18 +57,18 @@ export default function EventDetail() {
             />
           )}
         </div>
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <Link to="/events" className="inline-flex items-center gap-2 text-white/60 hover:text-white text-sm mb-6 transition-colors">
-            <ArrowLeft size={16} /> All Events
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <Link to="/events" className="inline-flex items-center gap-1.5 text-white/60 hover:text-white text-xs mb-4 transition-colors">
+            <ArrowLeft size={14} /> All Events
           </Link>
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4">{event.title}</h1>
+          <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-3">{event.title}</h1>
           {event.event_dates?.length > 0 && (
-            <div className="flex flex-wrap items-center gap-2 text-white/70">
-              <Calendar size={18} />
+            <div className="flex flex-wrap items-center gap-1.5 text-white/70">
+              <Calendar size={16} />
               {event.event_dates
                 .sort((a, b) => new Date(a.event_date).getTime() - new Date(b.event_date).getTime())
                 .map((date, i) => (
-                  <span key={date.id}>
+                  <span key={date.id} className="text-sm">
                     {new Date(date.event_date).toLocaleDateString('en-US', {
                       weekday: 'short',
                       month: 'short',
@@ -84,13 +84,13 @@ export default function EventDetail() {
         </div>
       </div>
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {event.poster_url && (
-          <div className="mb-10 -mt-16 relative z-10">
+          <div className="mb-8 -mt-12 relative z-10">
             <img
               src={getSupabaseImageUrl(event.poster_url)}
               alt={event.title}
-              className="w-full rounded-2xl shadow-2xl border border-gray-100"
+              className="w-full rounded-xl shadow-2xl border border-gray-100"
               onError={(e) => {
                 (e.target as HTMLImageElement).src = 'https://placehold.co/800x400/0d3b4f/ffffff?text=Citravel'
               }}
@@ -98,31 +98,31 @@ export default function EventDetail() {
           </div>
         )}
 
-        <div className="bg-card rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 mb-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">About This Event</h2>
-          <p className="text-gray-600 leading-relaxed whitespace-pre-wrap">{event.description}</p>
+        <div className="bg-card rounded-xl p-5 shadow-sm border border-gray-100 mb-5">
+          <h2 className="text-lg font-bold text-gray-900 mb-3">About This Event</h2>
+          <p className="text-gray-600 leading-relaxed text-sm whitespace-pre-wrap">{event.description}</p>
         </div>
 
         {event.event_routes?.length > 0 && (
-          <div className="bg-card rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 mb-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-6">Routes & Pricing</h2>
-            <div className="space-y-4">
+          <div className="bg-card rounded-xl p-5 shadow-sm border border-gray-100 mb-5">
+            <h2 className="text-lg font-bold text-gray-900 mb-4">Routes & Pricing</h2>
+            <div className="space-y-3">
               {event.event_routes.map((route) => (
                 <div
                   key={route.id}
-                  className="flex flex-col sm:flex-row sm:items-center justify-between p-5 bg-surface rounded-xl border border-gray-100"
+                  className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-surface rounded-lg border border-gray-100"
                 >
-                  <div className="flex items-center gap-3 mb-3 sm:mb-0">
-                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                      <MapPin size={18} className="text-primary" />
+                  <div className="flex items-center gap-3 mb-2 sm:mb-0">
+                    <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                      <MapPin size={16} className="text-primary" />
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-900">{route.route_name}</p>
-                      <p className="text-sm text-gray-500">{route.meeting_point}</p>
+                      <p className="font-semibold text-gray-900 text-sm">{route.route_name}</p>
+                      <p className="text-xs text-gray-500">{route.meeting_point}</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-1.5 text-primary font-bold text-lg">
-                    <IndianRupee size={18} />
+                  <div className="flex items-center gap-1.5 text-primary font-bold text-sm">
+                    <IndianRupee size={16} />
                     IDR {route.price.toLocaleString()}
                   </div>
                 </div>
@@ -132,13 +132,13 @@ export default function EventDetail() {
         )}
 
         {event.event_documentation?.length > 0 && (
-          <div className="bg-card rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 mb-8">
-            <h2 className="text-xl font-bold text-gray-900 mb-6">Documentation</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          <div className="bg-card rounded-xl p-5 shadow-sm border border-gray-100 mb-5">
+            <h2 className="text-lg font-bold text-gray-900 mb-4">Documentation</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {event.event_documentation
                 .sort((a, b) => a.display_order - b.display_order)
                 .map((doc) => (
-                  <div key={doc.id} className="aspect-square rounded-xl overflow-hidden border border-gray-100">
+                  <div key={doc.id} className="aspect-square rounded-lg overflow-hidden border border-gray-100">
                     <img
                       src={getSupabaseImageUrl(doc.image_url)}
                       alt={doc.caption || ''}
@@ -152,17 +152,17 @@ export default function EventDetail() {
         )}
 
         {event.google_form_url && (
-          <div className="bg-primary rounded-2xl p-6 md:p-8 text-center">
-            <h3 className="text-xl font-bold text-white mb-2">Ready to Join?</h3>
-            <p className="text-white/60 mb-6">Secure your spot now!</p>
+          <div className="bg-primary rounded-xl p-5 text-center">
+            <h3 className="text-lg font-bold text-white mb-1">Ready to Join?</h3>
+            <p className="text-white/60 text-sm mb-4">Secure your spot now!</p>
             <a
               href={event.google_form_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-accent text-white px-8 py-4 rounded-full font-bold hover:bg-accent-dark transition-all duration-200 shadow-lg shadow-accent/40 text-lg"
+              className="inline-flex items-center gap-2 bg-accent text-white px-6 py-2.5 rounded-full font-bold hover:bg-accent-dark transition-all duration-200 shadow-lg shadow-accent/40 text-sm"
             >
               Register Now
-              <ExternalLink size={20} />
+              <ExternalLink size={16} />
             </a>
           </div>
         )}

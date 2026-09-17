@@ -151,52 +151,52 @@ export default function EventForm() {
 
   return (
     <div>
-      <div className="flex items-center gap-4 mb-8">
+      <div className="flex items-center gap-3 mb-6">
         <button onClick={() => navigate('/admin/events')} className="text-gray-400 hover:text-gray-600">
-          <ArrowLeft size={20} />
+          <ArrowLeft size={18} />
         </button>
         <div>
-          <h1 className="text-2xl font-extrabold text-gray-900">
+          <h1 className="text-xl font-extrabold text-gray-900">
             {isEdit ? 'Edit Event' : 'Create Event'}
           </h1>
-          <p className="text-gray-500 text-sm mt-1">
+          <p className="text-gray-500 text-xs mt-0.5">
             {isEdit ? 'Update event details' : 'Fill in the details for your new event'}
           </p>
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="bg-card rounded-2xl border border-gray-100 p-5 sm:p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-5">Basic Information</h2>
-          <div className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="bg-card rounded-xl border border-gray-100 p-4 sm:p-5">
+          <h2 className="text-base font-bold text-gray-900 mb-4">Basic Information</h2>
+          <div className="space-y-3">
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Event Name</label>
+              <label className="block text-xs font-semibold text-gray-700 mb-1.5">Event Name</label>
               <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
                 placeholder="e.g. Citravel Mountain Adventure"
                 required
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Description</label>
+              <label className="block text-xs font-semibold text-gray-700 mb-1.5">Description</label>
               <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                rows={4}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none transition-all"
+                rows={3}
+                className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none transition-all text-sm"
                 placeholder="Describe your event..."
                 required
               />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Status</label>
+              <label className="block text-xs font-semibold text-gray-700 mb-1.5">Status</label>
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value as EventStatus)}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
               >
                 <option value="draft">Draft</option>
                 <option value="open">Open</option>
@@ -207,9 +207,9 @@ export default function EventForm() {
           </div>
         </div>
 
-        <div className="bg-card rounded-2xl border border-gray-100 p-5 sm:p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-5">Media</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div className="bg-card rounded-xl border border-gray-100 p-4 sm:p-5">
+          <h2 className="text-base font-bold text-gray-900 mb-4">Media</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {isEdit && id ? (
               <>
                 <ImageUploader eventId={id} folder="poster" currentUrl={posterUrl} onUpload={setPosterUrl} label="Poster" />
@@ -217,16 +217,16 @@ export default function EventForm() {
                 <ImageUploader eventId={id} folder="banner" currentUrl={bannerUrl} onUpload={setBannerUrl} label="Banner" />
               </>
             ) : (
-              <p className="text-sm text-gray-400 col-span-3 bg-gray-50 p-4 rounded-xl text-center">
+              <p className="text-xs text-gray-400 col-span-3 bg-gray-50 p-3 rounded-lg text-center">
                 Save the event first, then upload media.
               </p>
             )}
           </div>
         </div>
 
-        <div className="bg-card rounded-2xl border border-gray-100 p-5 sm:p-6">
-          <div className="flex items-center justify-between mb-5">
-            <h2 className="text-lg font-bold text-gray-900">Event Dates</h2>
+        <div className="bg-card rounded-xl border border-gray-100 p-4 sm:p-5">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-base font-bold text-gray-900">Event Dates</h2>
             <button
               type="button"
               onClick={addDate}
@@ -235,14 +235,14 @@ export default function EventForm() {
               <Plus size={16} /> Add Date
             </button>
           </div>
-          <div className="space-y-3">
+          <div className="space-y-2">
             {dates.map((date, index) => (
-              <div key={index} className="flex items-center gap-3">
+              <div key={index} className="flex items-center gap-2">
                 <input
                   type="date"
                   value={date.event_date}
                   onChange={(e) => updateDate(index, e.target.value)}
-                  className="flex-1 px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                  className="flex-1 px-3 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
                   required
                 />
                 {dates.length > 1 && (
@@ -259,9 +259,9 @@ export default function EventForm() {
           </div>
         </div>
 
-        <div className="bg-card rounded-2xl border border-gray-100 p-5 sm:p-6">
-          <div className="flex items-center justify-between mb-5">
-            <h2 className="text-lg font-bold text-gray-900">Routes</h2>
+        <div className="bg-card rounded-xl border border-gray-100 p-4 sm:p-5">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-base font-bold text-gray-900">Routes</h2>
             <button
               type="button"
               onClick={addRoute}
@@ -270,36 +270,36 @@ export default function EventForm() {
               <Plus size={16} /> Add Route
             </button>
           </div>
-          <div className="space-y-4">
+          <div className="space-y-3">
             {routes.map((route, index) => (
-              <div key={index} className="grid grid-cols-1 sm:grid-cols-4 gap-3 items-end p-4 bg-gray-50 rounded-xl">
+              <div key={index} className="grid grid-cols-1 sm:grid-cols-4 gap-2 items-end p-3 bg-gray-50 rounded-lg">
                 <div>
-                  <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Route Name</label>
+                  <label className="block text-[10px] font-semibold text-gray-500 mb-1 uppercase tracking-wider">Route Name</label>
                   <input
                     type="text"
                     value={route.route_name}
                     onChange={(e) => updateRoute(index, 'route_name', e.target.value)}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary bg-card transition-all"
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-card transition-all text-sm"
                     placeholder="e.g. Jakarta Route"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Price (IDR)</label>
+                  <label className="block text-[10px] font-semibold text-gray-500 mb-1 uppercase tracking-wider">Price (IDR)</label>
                   <input
                     type="number"
                     value={route.price || ''}
                     onChange={(e) => updateRoute(index, 'price', Number(e.target.value))}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary bg-card transition-all"
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-card transition-all text-sm"
                     placeholder="500000"
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-semibold text-gray-500 mb-1.5 uppercase tracking-wider">Meeting Point</label>
+                  <label className="block text-[10px] font-semibold text-gray-500 mb-1 uppercase tracking-wider">Meeting Point</label>
                   <input
                     type="text"
                     value={route.meeting_point}
                     onChange={(e) => updateRoute(index, 'meeting_point', e.target.value)}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary bg-card transition-all"
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-card transition-all text-sm"
                     placeholder="Jakarta"
                   />
                 </div>
@@ -319,22 +319,22 @@ export default function EventForm() {
           </div>
         </div>
 
-        <div className="bg-card rounded-2xl border border-gray-100 p-5 sm:p-6">
-          <h2 className="text-lg font-bold text-gray-900 mb-5">Registration</h2>
+        <div className="bg-card rounded-xl border border-gray-100 p-4 sm:p-5">
+          <h2 className="text-base font-bold text-gray-900 mb-4">Registration</h2>
           <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-2">Google Form URL</label>
+            <label className="block text-xs font-semibold text-gray-700 mb-1.5">Google Form URL</label>
             <input
               type="url"
               value={googleFormUrl}
               onChange={(e) => setGoogleFormUrl(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+              className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
               placeholder="https://docs.google.com/forms/d/..."
             />
           </div>
         </div>
 
         {isEdit && id && (
-          <div className="bg-card rounded-2xl border border-gray-100 p-5 sm:p-6">
+          <div className="bg-card rounded-xl border border-gray-100 p-4 sm:p-5">
             <DocumentationUploader
               eventId={id}
               docs={documentation}
@@ -350,11 +350,11 @@ export default function EventForm() {
           </div>
         )}
 
-        <div className="flex gap-3">
+        <div className="flex gap-2">
           <button
             type="submit"
             disabled={saving}
-            className="bg-accent text-white px-8 py-3 rounded-xl font-bold hover:bg-accent-dark transition-all duration-200 disabled:opacity-50 flex items-center gap-2 shadow-sm shadow-accent/30"
+            className="bg-accent text-white px-6 py-2.5 rounded-lg font-bold hover:bg-accent-dark transition-all duration-200 disabled:opacity-50 flex items-center gap-2 shadow-sm shadow-accent/30 text-sm"
           >
             <Save size={18} />
             {saving ? 'Saving...' : isEdit ? 'Update Event' : 'Create Event'}
@@ -362,7 +362,7 @@ export default function EventForm() {
           <button
             type="button"
             onClick={() => navigate('/admin/events')}
-            className="bg-gray-100 text-gray-700 px-6 py-3 rounded-xl font-semibold hover:bg-gray-200 transition-colors"
+            className="bg-gray-100 text-gray-700 px-5 py-2.5 rounded-lg font-semibold hover:bg-gray-200 transition-colors text-sm"
           >
             Cancel
           </button>

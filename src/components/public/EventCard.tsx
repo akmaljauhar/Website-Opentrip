@@ -22,9 +22,9 @@ export default function EventCard({ event, showStatus }: EventCardProps) {
   return (
     <Link
       to={`/events/${event.slug}`}
-      className="group block bg-card rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-primary/20"
+      className="group block bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-primary/20"
     >
-      <div className="relative aspect-[16/10] bg-gray-100 overflow-hidden">
+      <div className="relative aspect-[16/9] bg-gray-100 overflow-hidden">
         <img
           src={getSupabaseImageUrl(event.thumbnail_url || event.poster_url || '')}
           alt={event.title}
@@ -34,23 +34,23 @@ export default function EventCard({ event, showStatus }: EventCardProps) {
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
-          <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center shadow-lg">
-            <ArrowUpRight size={18} className="text-white" />
+        <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0">
+          <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center shadow-lg">
+            <ArrowUpRight size={14} className="text-white" />
           </div>
         </div>
         {showStatus && (
-          <div className="absolute top-3 left-3">
-            <span className={`text-xs font-semibold px-3 py-1 rounded-full ${statusColors[event.status]}`}>
+          <div className="absolute top-2 left-2">
+            <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${statusColors[event.status]}`}>
               {event.status.charAt(0).toUpperCase() + event.status.slice(1)}
             </span>
           </div>
         )}
       </div>
-      <div className="p-5">
+      <div className="p-4">
         {firstDate && !showStatus && (
-          <div className="flex items-center gap-1.5 text-accent text-xs font-semibold mb-2">
-            <Calendar size={13} />
+          <div className="flex items-center gap-1.5 text-accent text-xs font-semibold mb-1.5">
+            <Calendar size={12} />
             {new Date(firstDate).toLocaleDateString('en-US', {
               month: 'short',
               day: 'numeric',
@@ -58,18 +58,18 @@ export default function EventCard({ event, showStatus }: EventCardProps) {
             })}
           </div>
         )}
-        <h3 className="text-lg font-bold text-gray-900 group-hover:text-primary transition-colors line-clamp-1 mb-1">
+        <h3 className="text-base font-bold text-gray-900 group-hover:text-primary transition-colors line-clamp-1 mb-0.5">
           {event.title}
         </h3>
-        <p className="text-sm text-gray-500 line-clamp-2 mb-4">{event.description}</p>
+        <p className="text-xs text-gray-500 line-clamp-2 mb-3">{event.description}</p>
         {firstRoute && (
-          <div className="flex items-center gap-4 text-sm text-gray-500 pt-3 border-t border-gray-100">
-            <span className="flex items-center gap-1.5 font-semibold text-primary">
-              <IndianRupee size={14} />
+          <div className="flex items-center gap-3 text-xs text-gray-500 pt-2 border-t border-gray-100">
+            <span className="flex items-center gap-1 font-semibold text-primary">
+              <IndianRupee size={12} />
               IDR {firstRoute.price.toLocaleString()}
             </span>
-            <span className="flex items-center gap-1.5">
-              <MapPin size={14} className="text-gray-400" />
+            <span className="flex items-center gap-1">
+              <MapPin size={12} className="text-gray-400" />
               {firstRoute.meeting_point}
             </span>
           </div>

@@ -32,13 +32,13 @@ export default function AdminLayout() {
     <div className="min-h-screen bg-surface">
       <nav className="bg-card border-b border-gray-200 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
+          <div className="flex justify-between h-14 items-center">
             <div className="flex items-center gap-3">
               <Link to="/" className="text-gray-400 hover:text-gray-600 p-1.5 rounded-lg hover:bg-gray-100 transition-colors">
                 <ChevronLeft size={20} />
               </Link>
               <div className="h-6 w-px bg-gray-200 hidden sm:block" />
-              <Logo className="h-8 w-auto" />
+              <Logo className="h-7 w-auto" />
               <span className="text-xs font-semibold text-primary bg-primary/5 px-2.5 py-1 rounded-full border border-primary/10 hidden sm:inline-block">
                 Admin
               </span>
@@ -89,9 +89,9 @@ export default function AdminLayout() {
         )}
       </nav>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex flex-col md:flex-row gap-8">
-          <aside className="hidden md:block md:w-56 flex-shrink-0">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="flex flex-col md:flex-row gap-6">
+          <aside className="hidden md:block md:w-48 flex-shrink-0">
             <nav className="space-y-1">
               {navItems.map((item) => {
                 const isActive = item.exact
@@ -101,7 +101,7 @@ export default function AdminLayout() {
                   <Link
                     key={item.to}
                     to={item.to}
-                    className={`flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                    className={`flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm font-semibold transition-all duration-200 ${
                       isActive
                         ? 'bg-primary text-white shadow-sm'
                         : 'text-gray-500 hover:bg-gray-100 hover:text-gray-900'

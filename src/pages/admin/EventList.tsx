@@ -27,10 +27,10 @@ export default function EventList({ status }: Props) {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-extrabold text-gray-900">{title}</h1>
-          <p className="text-gray-500 text-sm mt-1">{description}</p>
+          <h1 className="text-xl font-extrabold text-gray-900">{title}</h1>
+          <p className="text-gray-500 text-xs mt-0.5">{description}</p>
         </div>
         <Link
           to="/admin/events/new"
@@ -48,11 +48,11 @@ export default function EventList({ status }: Props) {
           ))}
         </div>
       ) : events.length === 0 ? (
-        <div className="bg-card rounded-2xl border border-gray-100 p-12 text-center">
-          <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-            <Calendar size={28} className="text-primary" />
-          </div>
-          <p className="text-gray-500 font-medium mb-2">No events found</p>
+          <div className="bg-card rounded-xl border border-gray-100 p-10 text-center">
+            <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+              <Calendar size={22} className="text-primary" />
+            </div>
+            <p className="text-gray-500 font-medium text-sm mb-1">No events found</p>
           <Link to="/admin/events/new" className="text-primary text-sm font-semibold hover:text-primary-light">
             Create an event →
           </Link>
@@ -62,10 +62,10 @@ export default function EventList({ status }: Props) {
           {events.map((event) => (
             <div
               key={event.id}
-              className="bg-card rounded-2xl border border-gray-100 p-5 flex items-center justify-between hover:shadow-md transition-shadow"
+              className="bg-card rounded-xl border border-gray-100 p-4 flex items-center justify-between hover:shadow-md transition-shadow"
             >
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary font-bold text-lg">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center text-primary font-bold text-sm">
                   {event.title[0]}
                 </div>
                 <div>

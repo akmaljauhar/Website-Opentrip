@@ -18,10 +18,10 @@ export default function Dashboard() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-extrabold text-gray-900">Dashboard</h1>
-          <p className="text-gray-500 text-sm mt-1">Manage your events and track performance</p>
+          <h1 className="text-xl font-extrabold text-gray-900">Dashboard</h1>
+          <p className="text-gray-500 text-xs mt-0.5">Manage your events and track performance</p>
         </div>
         <Link
           to="/admin/events/new"
@@ -32,27 +32,27 @@ export default function Dashboard() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
         {stats.map((stat) => (
-          <div key={stat.label} className="bg-card rounded-2xl p-5 border border-gray-100 hover:shadow-md transition-shadow">
-            <div className="flex items-center gap-4">
-              <div className={`p-3 rounded-xl ${stat.lightColor}`}>
-                <stat.icon size={22} />
+          <div key={stat.label} className="bg-card rounded-xl p-4 border border-gray-100 hover:shadow-md transition-shadow">
+            <div className="flex items-center gap-3">
+              <div className={`p-2 rounded-lg ${stat.lightColor}`}>
+                <stat.icon size={18} />
               </div>
               <div>
-                <p className="text-3xl font-extrabold text-gray-900">
+                <p className="text-2xl font-extrabold text-gray-900">
                   {loading ? '-' : stat.value}
                 </p>
-                <p className="text-sm text-gray-500 font-medium">{stat.label}</p>
+                <p className="text-xs text-gray-500 font-medium">{stat.label}</p>
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="bg-card rounded-2xl border border-gray-100 overflow-hidden">
-        <div className="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
-          <h2 className="text-lg font-bold text-gray-900">All Events</h2>
+      <div className="bg-card rounded-xl border border-gray-100 overflow-hidden">
+        <div className="px-5 py-3.5 border-b border-gray-100 flex items-center justify-between">
+          <h2 className="text-sm font-bold text-gray-900">All Events</h2>
           <Link to="/admin/events" className="text-sm text-primary font-semibold flex items-center gap-1 hover:text-primary-light">
             View all <ArrowRight size={14} />
           </Link>
@@ -64,11 +64,11 @@ export default function Dashboard() {
             ))}
           </div>
         ) : allEvents.length === 0 ? (
-          <div className="p-12 text-center">
-            <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <Calendar size={28} className="text-primary" />
+          <div className="p-10 text-center">
+            <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-3">
+              <Calendar size={22} className="text-primary" />
             </div>
-            <p className="text-gray-500 font-medium mb-2">No events yet</p>
+            <p className="text-gray-500 font-medium text-sm mb-1">No events yet</p>
             <Link to="/admin/events/new" className="text-primary text-sm font-semibold hover:text-primary-light">
               Create your first event →
             </Link>
@@ -83,9 +83,9 @@ export default function Dashboard() {
                 previous: 'bg-blue-50 text-blue-700 ring-1 ring-blue-200',
               }
               return (
-                <div key={event.id} className="px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors">
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary font-bold text-sm">
+                <div key={event.id} className="px-5 py-3 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center text-primary font-bold text-xs">
                       {event.title[0]}
                     </div>
                     <div>

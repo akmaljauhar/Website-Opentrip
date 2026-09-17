@@ -40,34 +40,34 @@ export default function Login() {
             <Lock className="text-white" size={28} />
           </div>
           <h1 className="text-2xl font-extrabold text-white">Admin Dashboard</h1>
-          <p className="text-white/50 mt-2">Sign in to manage your events</p>
+          <p className="text-white/50 text-sm mt-1">Sign in to manage your events</p>
         </div>
 
-        <div className="bg-white/10 backdrop-blur-md rounded-2xl border border-white/10 p-8">
-          <form onSubmit={handleSubmit} className="space-y-5">
+        <div className="bg-white/10 backdrop-blur-md rounded-xl border border-white/10 p-6">
+          <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
               <div className="bg-red-500/20 border border-red-500/30 text-white text-sm px-4 py-3 rounded-xl">
                 {error}
               </div>
             )}
             <div>
-              <label className="block text-sm font-medium text-white/70 mb-2">Email</label>
+              <label className="block text-xs font-medium text-white/70 mb-1.5">Email</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-white/10 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
+                className="w-full px-3 py-2.5 bg-white/10 border border-white/10 rounded-lg text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all text-sm"
                 placeholder="admin@citravel.com"
                 required
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-white/70 mb-2">Password</label>
+              <label className="block text-xs font-medium text-white/70 mb-1.5">Password</label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-white/10 border border-white/10 rounded-xl text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
+                className="w-full px-3 py-2.5 bg-white/10 border border-white/10 rounded-lg text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all text-sm"
                 placeholder="••••••••"
                 required
               />
@@ -75,7 +75,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-accent text-white py-3 rounded-xl font-bold hover:bg-accent-dark transition-all duration-200 disabled:opacity-50 flex items-center justify-center gap-2 shadow-lg shadow-accent/40"
+              className="w-full bg-accent text-white py-2.5 rounded-lg font-bold hover:bg-accent-dark transition-all duration-200 disabled:opacity-50 flex items-center justify-center gap-2 shadow-lg shadow-accent/40 text-sm"
             >
               <LogIn size={18} />
               {loading ? 'Signing in...' : 'Sign In'}

@@ -23,19 +23,19 @@ function HeroSlide({ event }: { event: EventWithDetails }) {
           />
         )}
       </div>
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <div className="max-w-2xl">
-          <div className="inline-flex items-center gap-2 bg-accent/20 text-accent text-sm font-semibold px-4 py-2 rounded-full mb-6 border border-accent/30">
-            <Sparkles size={16} />
+          <div className="inline-flex items-center gap-2 bg-accent/20 text-accent text-xs font-semibold px-3 py-1.5 rounded-full mb-4 border border-accent/30">
+            <Sparkles size={14} />
             Featured Event
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 leading-tight">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-3 leading-tight">
             {event.title}
           </h1>
           {event.event_dates?.length > 0 && (
-            <div className="flex items-center gap-2 text-white/70 mb-6">
-              <Calendar size={18} />
-              <span>
+            <div className="flex items-center gap-2 text-white/70 mb-4">
+              <Calendar size={16} />
+              <span className="text-sm">
                 {new Date(event.event_dates[0].event_date).toLocaleDateString('en-US', {
                   month: 'long',
                   day: 'numeric',
@@ -45,21 +45,21 @@ function HeroSlide({ event }: { event: EventWithDetails }) {
               </span>
             </div>
           )}
-          <p className="text-lg text-white/60 mb-8 line-clamp-3">{event.description}</p>
-          <div className="flex flex-wrap gap-4">
+          <p className="text-sm text-white/60 mb-6 line-clamp-3">{event.description}</p>
+          <div className="flex flex-wrap gap-3">
             <Link
               to={`/events/${event.slug}`}
-              className="inline-flex items-center gap-2 bg-white text-primary px-8 py-4 rounded-full font-bold hover:bg-gray-100 transition-all duration-200 shadow-lg"
+              className="inline-flex items-center gap-2 bg-white text-primary px-6 py-2.5 rounded-full font-bold hover:bg-gray-100 transition-all duration-200 shadow-lg text-sm"
             >
               View Details
-              <ArrowRight size={18} />
+              <ArrowRight size={16} />
             </Link>
             {event.google_form_url && event.status !== 'previous' && (
               <a
                 href={event.google_form_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-accent text-white px-8 py-4 rounded-full font-bold hover:bg-accent-dark transition-all duration-200 shadow-lg shadow-accent/40"
+                className="inline-flex items-center gap-2 bg-accent text-white px-6 py-2.5 rounded-full font-bold hover:bg-accent-dark transition-all duration-200 shadow-lg shadow-accent/40 text-sm"
               >
                 Register Now
               </a>
@@ -121,21 +121,21 @@ export default function HeroSection({ events }: HeroSectionProps) {
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
         </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 md:py-36 text-center">
-          <div className="inline-flex items-center gap-2 bg-white/10 text-white/90 text-sm font-medium px-4 py-2 rounded-full mb-6 backdrop-blur-sm">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 text-center">
+          <div className="inline-flex items-center gap-2 bg-white/10 text-white/90 text-sm font-medium px-4 py-2 rounded-full mb-4 backdrop-blur-sm">
             <Sparkles size={16} className="text-accent" />
             Find Your Alonica
           </div>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 leading-tight">
             Explore <span className="text-accent">Unforgettable</span><br />Experiences
           </h1>
-          <p className="text-lg text-white/60 max-w-xl mx-auto mb-8">
+          <p className="text-white/60 max-w-xl mx-auto mb-6">
             Join exciting events and trips curated just for you.
             Create memories that last a lifetime.
           </p>
           <Link
             to="/events"
-            className="inline-flex items-center gap-2 bg-accent text-white px-8 py-4 rounded-full font-bold hover:bg-accent-dark transition-all duration-200 shadow-lg shadow-accent/40"
+            className="inline-flex items-center gap-2 bg-accent text-white px-6 py-3 rounded-full font-bold hover:bg-accent-dark transition-all duration-200 shadow-lg shadow-accent/40"
           >
             Browse Events
             <ArrowRight size={18} />
@@ -147,7 +147,7 @@ export default function HeroSection({ events }: HeroSectionProps) {
 
   return (
     <section
-      className="relative bg-primary overflow-hidden min-h-[500px] flex items-center"
+      className="relative bg-primary overflow-hidden min-h-[380px] flex items-center"
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
@@ -158,24 +158,24 @@ export default function HeroSection({ events }: HeroSectionProps) {
         <>
           <button
             onClick={prev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/10 backdrop-blur-sm text-white p-3 rounded-full hover:bg-white/20 transition-colors"
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/10 backdrop-blur-sm text-white p-2.5 rounded-full hover:bg-white/20 transition-colors"
           >
-            <ChevronLeft size={24} />
+            <ChevronLeft size={20} />
           </button>
           <button
             onClick={next}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/10 backdrop-blur-sm text-white p-3 rounded-full hover:bg-white/20 transition-colors"
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/10 backdrop-blur-sm text-white p-2.5 rounded-full hover:bg-white/20 transition-colors"
           >
-            <ChevronRight size={24} />
+            <ChevronRight size={20} />
           </button>
 
-          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
             {events.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setCurrent(i)}
-                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                  i === current ? 'bg-accent w-8' : 'bg-white/40 hover:bg-white/60'
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  i === current ? 'bg-accent w-6' : 'bg-white/40 hover:bg-white/60 w-2'
                 }`}
               />
             ))}
