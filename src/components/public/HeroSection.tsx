@@ -54,7 +54,7 @@ function HeroSlide({ event }: { event: EventWithDetails }) {
               View Details
               <ArrowRight size={18} />
             </Link>
-            {event.google_form_url && (
+            {event.google_form_url && event.status !== 'previous' && (
               <a
                 href={event.google_form_url}
                 target="_blank"
@@ -121,25 +121,27 @@ export default function HeroSection({ events }: HeroSectionProps) {
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
         </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 md:py-36 text-center">
-          <div className="inline-flex items-center gap-2 bg-white/10 text-white/90 text-sm font-medium px-4 py-2 rounded-full mb-6 backdrop-blur-sm">
-            <Sparkles size={16} className="text-accent" />
-            Find Your Alonica
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 md:py-36">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 bg-white/10 text-white/90 text-sm font-medium px-4 py-2 rounded-full mb-6 backdrop-blur-sm">
+              <Sparkles size={16} className="text-accent" />
+              Find Your Alonica
+            </div>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight">
+              Explore <span className="text-accent">Unforgettable</span><br />Experiences
+            </h1>
+            <p className="text-lg text-white/60 max-w-xl mb-8">
+              Join exciting events and trips curated just for you.
+              Create memories that last a lifetime.
+            </p>
+            <Link
+              to="/events"
+              className="inline-flex items-center gap-2 bg-accent text-white px-8 py-4 rounded-full font-bold hover:bg-accent-dark transition-all duration-200 shadow-lg shadow-accent/40"
+            >
+              Browse Events
+              <ArrowRight size={18} />
+            </Link>
           </div>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight">
-            Explore <span className="text-accent">Unforgettable</span><br />Experiences
-          </h1>
-          <p className="text-lg text-white/60 max-w-xl mx-auto mb-8">
-            Join exciting events and trips curated just for you.
-            Create memories that last a lifetime.
-          </p>
-          <Link
-            to="/events"
-            className="inline-flex items-center gap-2 bg-accent text-white px-8 py-4 rounded-full font-bold hover:bg-accent-dark transition-all duration-200 shadow-lg shadow-accent/40"
-          >
-            Browse Events
-            <ArrowRight size={18} />
-          </Link>
         </div>
       </section>
     )
