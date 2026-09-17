@@ -13,6 +13,12 @@ export default function Settings() {
   const [contactSaving, setContactSaving] = useState(false)
   const [contactSaved, setContactSaved] = useState(false)
 
+  const [instagram, setInstagram] = useState('')
+  const [tiktok, setTiktok] = useState('')
+  const [whatsapp, setWhatsapp] = useState('')
+  const [socialSaving, setSocialSaving] = useState(false)
+  const [socialSaved, setSocialSaved] = useState(false)
+
   useEffect(() => {
     const fetchSettings = async () => {
       const { data } = await supabase
@@ -25,6 +31,9 @@ export default function Settings() {
           if (row.key === 'contact_email') setEmail(row.value)
           if (row.key === 'contact_phone') setPhone(row.value)
           if (row.key === 'contact_address') setAddress(row.value)
+          if (row.key === 'social_instagram') setInstagram(row.value)
+          if (row.key === 'social_tiktok') setTiktok(row.value)
+          if (row.key === 'social_whatsapp') setWhatsapp(row.value)
         })
       }
     }
@@ -73,6 +82,23 @@ export default function Settings() {
     setContactSaving(false)
     setContactSaved(true)
     setTimeout(() => setContactSaved(false), 3000)
+  }
+
+  const handleSocialSave = async () => {
+    setSocialSaving(true)
+    const now = new Date().toISOString()
+
+    await supabase
+      .from('site_settings')
+      .upsert([
+        { key: 'social_instagram', value: instagram, updated_at: now },
+        { key: 'social_tiktok', value: tiktok, updated_at: now },
+        { key: 'social_whatsapp', value: whatsapp, updated_at: now },
+      ])
+
+    setSocialSaving(false)
+    setSocialSaved(true)
+    setTimeout(() => setSocialSaved(false), 3000)
   }
 
   return (
@@ -181,6 +207,62 @@ export default function Settings() {
               {contactSaved && (
                 <div className="flex items-center gap-1.5 text-sm text-green-600 mt-2 font-medium">
                   <Check size={14} /> Contact info saved!
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-card rounded-xl border border-gray-100 p-4 sm:p-5">
+          <h2 className="text-base font-bold text-gray-900 mb-1">Social Media</h2>
+          <p className="text-xs text-gray-500 mb-4">
+            Add your social media links to display in the footer.
+          </p>
+
+          <div className="space-y-3 max-w-lg">
+            <div>
+              <label className="block text-xs font-semibold text-gray-700 mb-1.5">Instagram URL</label>
+              <input
+                type="url"
+                value={instagram}
+                onChange={(e) => setInstagram(e.target.value)}
+                className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
+                placeholder="https://instagram.com/yourusername"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-gray-700 mb-1.5">TikTok URL</label>
+              <input
+                type="url"
+                value={tiktok}
+                onChange={(e) => setTiktok(e.target.value)}
+                className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
+                placeholder="https://tiktok.com/@yourusername"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-gray-700 mb-1.5">WhatsApp Number</label>
+              <input
+                type="tel"
+                value={whatsapp}
+                onChange={(e) => setWhatsapp(e.target.value)}
+                className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
+                placeholder="+6281234567890"
+              />
+              <p className="text-[10px] text-gray-400 mt-1">Enter number with country code (e.g. +6281234567890). No spaces or dashes.</p>
+            </div>
+            <div className="pt-1">
+              <button
+                onClick={handleSocialSave}
+                disabled={socialSaving}
+                className="inline-flex items-center gap-1.5 bg-accent text-white px-5 py-2 rounded-lg text-xs font-bold hover:bg-accent-dark transition-all duration-200 disabled:opacity-50 shadow-sm shadow-accent/30"
+              >
+                <Save size={16} />
+                {socialSaving ? 'Saving...' : 'Save Social Links'}
+              </button>
+              {socialSaved && (
+                <div className="flex items-center gap-1.5 text-sm text-green-600 mt-2 font-medium">
+                  <Check size={14} /> Social links saved!
                 </div>
               )}
             </div>
