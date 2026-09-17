@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #15066a;
+  --color-primary-light: #1e0a8a;
+  --color-primary-dark: #0f0450;
+  --color-accent: #f72b2f;
+  --color-accent-light: #ff4d50;
+  --color-accent-dark: #d91f23;
+  --color-surface: #f8f9fc;
+}
+
+body {
+  @apply bg-white text-gray-900 antialiased;
+}
+
+::selection {
+  background-color: #15066a;
+  color: #ffffff;
+}
