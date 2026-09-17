@@ -8,11 +8,9 @@ export default function Home() {
   const { events: upcomingEvents, loading: loadingUpcoming } = useEvents('open')
   const { events: previousEvents, loading: loadingPrevious } = useEvents('previous')
 
-  const featuredEvent = upcomingEvents[0]
-
   return (
     <div>
-      <HeroSection event={featuredEvent} />
+      <HeroSection events={upcomingEvents} />
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="flex items-end justify-between mb-10">

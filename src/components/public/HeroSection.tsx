@@ -1,46 +1,16 @@
+import { useState, useRef, useCallback, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Calendar, Sparkles } from 'lucide-react'
+import { ArrowRight, Calendar, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react'
 import { getSupabaseImageUrl } from '../../lib/supabase'
 import type { EventWithDetails } from '../../types'
 
 interface HeroSectionProps {
-  event: EventWithDetails | null
+  events: EventWithDetails[]
 }
 
-export default function HeroSection({ event }: HeroSectionProps) {
-  if (!event) {
-    return (
-      <section className="relative bg-primary overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
-        </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 md:py-36 text-center">
-          <div className="inline-flex items-center gap-2 bg-white/10 text-white/90 text-sm font-medium px-4 py-2 rounded-full mb-6 backdrop-blur-sm">
-            <Sparkles size={16} className="text-accent" />
-            Find Your Alonica
-          </div>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight">
-            Explore <span className="text-accent">Unforgettable</span><br />Experiences
-          </h1>
-          <p className="text-lg text-white/60 max-w-xl mx-auto mb-8">
-            Join exciting events and trips curated just for you.
-            Create memories that last a lifetime.
-          </p>
-          <Link
-            to="/events"
-            className="inline-flex items-center gap-2 bg-accent text-white px-8 py-4 rounded-full font-bold hover:bg-accent-dark transition-all duration-200 shadow-lg shadow-accent/40"
-          >
-            Browse Events
-            <ArrowRight size={18} />
-          </Link>
-        </div>
-      </section>
-    )
-  }
-
+function HeroSlide({ event }: { event: EventWithDetails }) {
   return (
-    <section className="relative bg-primary overflow-hidden min-h-[500px] flex items-center">
+    <>
       <div className="absolute inset-0">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
@@ -48,7 +18,7 @@ export default function HeroSection({ event }: HeroSectionProps) {
           <img
             src={getSupabaseImageUrl(event.banner_url)}
             alt=""
-            className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-40"
+            className="absolute inset-0 w-full h-full object-cover opacity-25"
             onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
           />
         )}
@@ -97,6 +67,121 @@ export default function HeroSection({ event }: HeroSectionProps) {
           </div>
         </div>
       </div>
+    </>
+  )
+}
+
+export default function HeroSection({ events }: HeroSectionProps) {
+  const [current, setCurrent] = useState(0)
+  const touchStart = useRef<number | null>(null)
+  const touchEnd = useRef<number | null>(null)
+  const minSwipeDistance = 50
+
+  const hasMultiple = events.length > 1
+
+  const next = useCallback(() => {
+    setCurrent((prev) => (prev + 1) % events.length)
+  }, [events.length])
+
+  const prev = useCallback(() => {
+    setCurrent((prev) => (prev - 1 + events.length) % events.length)
+  }, [events.length])
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchEnd.current = null
+    touchStart.current = e.targetTouches[0].clientX
+  }
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    touchEnd.current = e.targetTouches[0].clientX
+  }
+
+  const onTouchEnd = () => {
+    if (!touchStart.current || !touchEnd.current) return
+    const distance = touchStart.current - touchEnd.current
+    if (Math.abs(distance) >= minSwipeDistance) {
+      if (distance > 0) {
+        next()
+      } else {
+        prev()
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (!hasMultiple) return
+    const timer = setInterval(next, 5000)
+    return () => clearInterval(timer)
+  }, [hasMultiple, next])
+
+  if (events.length === 0) {
+    return (
+      <section className="relative bg-primary overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 md:py-36 text-center">
+          <div className="inline-flex items-center gap-2 bg-white/10 text-white/90 text-sm font-medium px-4 py-2 rounded-full mb-6 backdrop-blur-sm">
+            <Sparkles size={16} className="text-accent" />
+            Find Your Alonica
+          </div>
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight">
+            Explore <span className="text-accent">Unforgettable</span><br />Experiences
+          </h1>
+          <p className="text-lg text-white/60 max-w-xl mx-auto mb-8">
+            Join exciting events and trips curated just for you.
+            Create memories that last a lifetime.
+          </p>
+          <Link
+            to="/events"
+            className="inline-flex items-center gap-2 bg-accent text-white px-8 py-4 rounded-full font-bold hover:bg-accent-dark transition-all duration-200 shadow-lg shadow-accent/40"
+          >
+            Browse Events
+            <ArrowRight size={18} />
+          </Link>
+        </div>
+      </section>
+    )
+  }
+
+  return (
+    <section
+      className="relative bg-primary overflow-hidden min-h-[500px] flex items-center"
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
+    >
+      <HeroSlide event={events[current]} />
+
+      {hasMultiple && (
+        <>
+          <button
+            onClick={prev}
+            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/10 backdrop-blur-sm text-white p-3 rounded-full hover:bg-white/20 transition-colors"
+          >
+            <ChevronLeft size={24} />
+          </button>
+          <button
+            onClick={next}
+            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/10 backdrop-blur-sm text-white p-3 rounded-full hover:bg-white/20 transition-colors"
+          >
+            <ChevronRight size={24} />
+          </button>
+
+          <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+            {events.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                  i === current ? 'bg-accent w-8' : 'bg-white/40 hover:bg-white/60'
+                }`}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </section>
   )
 }
