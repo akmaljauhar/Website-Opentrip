@@ -98,7 +98,9 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
-            <Logo white className="h-8 w-auto mb-4" />
+            <div className="inline-flex bg-white rounded-lg px-3 py-1.5 mb-4">
+              <Logo className="h-8 w-auto" />
+            </div>
             <p className="text-white/60 text-sm leading-relaxed max-w-sm">
               Find Your Alonica. Your trusted partner for amazing events and trips.
               Discover unforgettable experiences with Citravel.
