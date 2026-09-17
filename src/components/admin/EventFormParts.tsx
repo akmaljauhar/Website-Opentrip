@@ -16,7 +16,7 @@ export function DeleteDialog({ isOpen, onClose, onConfirm, title }: DeleteDialog
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-2xl p-6 max-w-sm w-full shadow-2xl">
+      <div className="bg-card rounded-2xl p-6 max-w-sm w-full shadow-2xl">
         <div className="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center mx-auto mb-4">
           <X size={24} className="text-red-500" />
         </div>

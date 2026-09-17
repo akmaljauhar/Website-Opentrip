@@ -44,11 +44,11 @@ export default function EventList({ status }: Props) {
       {loading ? (
         <div className="space-y-3">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-20 bg-white rounded-2xl animate-pulse border border-gray-100" />
+            <div key={i} className="h-20 bg-card rounded-2xl animate-pulse border border-gray-100" />
           ))}
         </div>
       ) : events.length === 0 ? (
-        <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center">
+        <div className="bg-card rounded-2xl border border-gray-100 p-12 text-center">
           <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
             <Calendar size={28} className="text-primary" />
           </div>
@@ -62,7 +62,7 @@ export default function EventList({ status }: Props) {
           {events.map((event) => (
             <div
               key={event.id}
-              className="bg-white rounded-2xl border border-gray-100 p-5 flex items-center justify-between hover:shadow-md transition-shadow"
+              className="bg-card rounded-2xl border border-gray-100 p-5 flex items-center justify-between hover:shadow-md transition-shadow"
             >
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary font-bold text-lg">

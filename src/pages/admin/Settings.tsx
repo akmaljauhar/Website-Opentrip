@@ -83,14 +83,13 @@ export default function Settings() {
       </div>
 
       <div className="space-y-6">
-        {/* Logo */}
-        <div className="bg-white rounded-2xl border border-gray-100 p-6">
+        <div className="bg-card rounded-2xl border border-gray-100 p-5 sm:p-6">
           <h2 className="text-lg font-bold text-gray-900 mb-2">Site Logo</h2>
           <p className="text-sm text-gray-500 mb-6">
             Upload a logo that will appear in the top-left corner of the website.
           </p>
 
-          <div className="flex items-start gap-6">
+          <div className="flex flex-col sm:flex-row items-start gap-6">
             <div className="w-24 h-24 bg-gray-100 rounded-2xl flex items-center justify-center overflow-hidden border-2 border-dashed border-gray-200">
               {logoUrl ? (
                 <img
@@ -133,8 +132,7 @@ export default function Settings() {
           </div>
         </div>
 
-        {/* Contact Info */}
-        <div className="bg-white rounded-2xl border border-gray-100 p-6">
+        <div className="bg-card rounded-2xl border border-gray-100 p-5 sm:p-6">
           <h2 className="text-lg font-bold text-gray-900 mb-2">Contact Information</h2>
           <p className="text-sm text-gray-500 mb-6">
             These details will be displayed in the footer of the website.

@@ -43,7 +43,7 @@ export default function Footer() {
           <div className="md:col-span-2">
             <Logo white className="h-10 w-auto mb-6" />
             <p className="text-white/60 text-sm leading-relaxed max-w-sm">
-              Find Your Alanica. Your trusted partner for amazing events and trips.
+              Find Your Alonica. Your trusted partner for amazing events and trips.
               Discover unforgettable experiences with Citravel.
             </p>
             <div className="flex gap-3 mt-6">

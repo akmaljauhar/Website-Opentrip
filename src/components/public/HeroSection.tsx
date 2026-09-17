@@ -18,7 +18,7 @@ export default function HeroSection({ event }: HeroSectionProps) {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 md:py-36 text-center">
           <div className="inline-flex items-center gap-2 bg-white/10 text-white/90 text-sm font-medium px-4 py-2 rounded-full mb-6 backdrop-blur-sm">
             <Sparkles size={16} className="text-accent" />
-            Find Your Alanica
+            Find Your Alonica
           </div>
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white mb-6 leading-tight">
             Explore <span className="text-accent">Unforgettable</span><br />Experiences

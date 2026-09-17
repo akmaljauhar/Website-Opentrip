@@ -10,10 +10,10 @@ export default function Dashboard() {
   const previous = allEvents.filter((e) => e.status === 'previous')
 
   const stats = [
-    { label: 'Upcoming', value: upcoming.length, icon: Calendar, color: 'bg-green-500', lightColor: 'bg-green-50 text-green-700' },
-    { label: 'Draft', value: draft.length, icon: Clock, color: 'bg-amber-500', lightColor: 'bg-amber-50 text-amber-700' },
-    { label: 'Closed', value: closed.length, icon: TrendingUp, color: 'bg-red-500', lightColor: 'bg-red-50 text-red-700' },
-    { label: 'Previous', value: previous.length, icon: CheckCircle, color: 'bg-blue-500', lightColor: 'bg-blue-50 text-blue-700' },
+    { label: 'Upcoming', value: upcoming.length, icon: Calendar, lightColor: 'bg-green-50 text-green-700' },
+    { label: 'Draft', value: draft.length, icon: Clock, lightColor: 'bg-amber-50 text-amber-700' },
+    { label: 'Closed', value: closed.length, icon: TrendingUp, lightColor: 'bg-red-50 text-red-700' },
+    { label: 'Previous', value: previous.length, icon: CheckCircle, lightColor: 'bg-blue-50 text-blue-700' },
   ]
 
   return (
@@ -32,10 +32,9 @@ export default function Dashboard() {
         </Link>
       </div>
 
-      {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {stats.map((stat) => (
-          <div key={stat.label} className="bg-white rounded-2xl p-5 border border-gray-100 hover:shadow-md transition-shadow">
+          <div key={stat.label} className="bg-card rounded-2xl p-5 border border-gray-100 hover:shadow-md transition-shadow">
             <div className="flex items-center gap-4">
               <div className={`p-3 rounded-xl ${stat.lightColor}`}>
                 <stat.icon size={22} />
@@ -51,8 +50,7 @@ export default function Dashboard() {
         ))}
       </div>
 
-      {/* Events Table */}
-      <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+      <div className="bg-card rounded-2xl border border-gray-100 overflow-hidden">
         <div className="px-6 py-5 border-b border-gray-100 flex items-center justify-between">
           <h2 className="text-lg font-bold text-gray-900">All Events</h2>
           <Link to="/admin/events" className="text-sm text-primary font-semibold flex items-center gap-1 hover:text-primary-light">

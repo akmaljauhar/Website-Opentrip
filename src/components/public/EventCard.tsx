@@ -22,7 +22,7 @@ export default function EventCard({ event, showStatus }: EventCardProps) {
   return (
     <Link
       to={`/events/${event.slug}`}
-      className="group block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-primary/20"
+      className="group block bg-card rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-primary/20"
     >
       <div className="relative aspect-[16/10] bg-gray-100 overflow-hidden">
         <img
@@ -30,7 +30,7 @@ export default function EventCard({ event, showStatus }: EventCardProps) {
           alt={event.title}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           onError={(e) => {
-            (e.target as HTMLImageElement).src = 'https://placehold.co/600x400/15066a/ffffff?text=Citravel'
+            (e.target as HTMLImageElement).src = 'https://placehold.co/600x400/0d3b4f/ffffff?text=Citravel'
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -49,7 +49,7 @@ export default function EventCard({ event, showStatus }: EventCardProps) {
       </div>
       <div className="p-5">
         {firstDate && !showStatus && (
-          <div className="flex items-center gap-1.5 text-primary text-xs font-semibold mb-2">
+          <div className="flex items-center gap-1.5 text-accent text-xs font-semibold mb-2">
             <Calendar size={13} />
             {new Date(firstDate).toLocaleDateString('en-US', {
               month: 'short',

@@ -44,7 +44,6 @@ export default function EventDetail() {
 
   return (
     <div className="bg-surface min-h-screen">
-      {/* Header */}
       <div className="bg-primary relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
@@ -86,7 +85,6 @@ export default function EventDetail() {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Poster */}
         {event.poster_url && (
           <div className="mb-10 -mt-16 relative z-10">
             <img
@@ -94,21 +92,19 @@ export default function EventDetail() {
               alt={event.title}
               className="w-full rounded-2xl shadow-2xl border border-gray-100"
               onError={(e) => {
-                (e.target as HTMLImageElement).src = 'https://placehold.co/800x400/15066a/ffffff?text=Citravel'
+                (e.target as HTMLImageElement).src = 'https://placehold.co/800x400/0d3b4f/ffffff?text=Citravel'
               }}
             />
           </div>
         )}
 
-        {/* Description */}
-        <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 mb-8">
+        <div className="bg-card rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 mb-8">
           <h2 className="text-xl font-bold text-gray-900 mb-4">About This Event</h2>
           <p className="text-gray-600 leading-relaxed whitespace-pre-wrap">{event.description}</p>
         </div>
 
-        {/* Routes */}
         {event.event_routes?.length > 0 && (
-          <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 mb-8">
+          <div className="bg-card rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 mb-8">
             <h2 className="text-xl font-bold text-gray-900 mb-6">Routes & Pricing</h2>
             <div className="space-y-4">
               {event.event_routes.map((route) => (
@@ -135,9 +131,8 @@ export default function EventDetail() {
           </div>
         )}
 
-        {/* Documentation */}
         {event.event_documentation?.length > 0 && (
-          <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 mb-8">
+          <div className="bg-card rounded-2xl p-6 md:p-8 shadow-sm border border-gray-100 mb-8">
             <h2 className="text-xl font-bold text-gray-900 mb-6">Documentation</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
               {event.event_documentation
@@ -156,9 +151,8 @@ export default function EventDetail() {
           </div>
         )}
 
-        {/* Register CTA */}
         {event.google_form_url && (
-          <div className="bg-primary rounded-2xl p-8 text-center">
+          <div className="bg-primary rounded-2xl p-6 md:p-8 text-center">
             <h3 className="text-xl font-bold text-white mb-2">Ready to Join?</h3>
             <p className="text-white/60 mb-6">Secure your spot now!</p>
             <a
