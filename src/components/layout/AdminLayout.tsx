@@ -30,7 +30,7 @@ export default function AdminLayout() {
 
   return (
     <div className="min-h-screen bg-surface">
-      <nav className="bg-card border-b border-gray-100 sticky top-0 z-50">
+      <nav className="bg-card border-b border-gray-200 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             <div className="flex items-center gap-3">
@@ -62,7 +62,7 @@ export default function AdminLayout() {
         </div>
 
         {mobileNavOpen && (
-          <div className="md:hidden border-t border-gray-100 bg-card">
+          <div className="md:hidden border-t border-gray-200 bg-card">
             <div className="px-4 py-3 space-y-1">
               {navItems.map((item) => {
                 const isActive = item.exact

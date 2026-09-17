@@ -159,7 +159,7 @@ export default function EventDetail() {
               href={event.google_form_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-accent text-white px-8 py-4 rounded-full font-bold hover:bg-accent-light transition-all duration-200 shadow-lg shadow-accent/30 text-lg"
+              className="inline-flex items-center gap-2 bg-accent text-white px-8 py-4 rounded-full font-bold hover:bg-accent-dark transition-all duration-200 shadow-lg shadow-accent/40 text-lg"
             >
               Register Now
               <ExternalLink size={20} />

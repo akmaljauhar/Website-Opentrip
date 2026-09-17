@@ -29,7 +29,7 @@ export default function HeroSection({ event }: HeroSectionProps) {
           </p>
           <Link
             to="/events"
-            className="inline-flex items-center gap-2 bg-accent text-white px-8 py-4 rounded-full font-semibold hover:bg-accent-light transition-all duration-200 shadow-lg shadow-accent/30"
+            className="inline-flex items-center gap-2 bg-accent text-white px-8 py-4 rounded-full font-bold hover:bg-accent-dark transition-all duration-200 shadow-lg shadow-accent/40"
           >
             Browse Events
             <ArrowRight size={18} />
@@ -79,7 +79,7 @@ export default function HeroSection({ event }: HeroSectionProps) {
           <div className="flex flex-wrap gap-4">
             <Link
               to={`/events/${event.slug}`}
-              className="inline-flex items-center gap-2 bg-white text-primary px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-all duration-200 shadow-lg"
+              className="inline-flex items-center gap-2 bg-white text-primary px-8 py-4 rounded-full font-bold hover:bg-gray-100 transition-all duration-200 shadow-lg"
             >
               View Details
               <ArrowRight size={18} />
@@ -89,7 +89,7 @@ export default function HeroSection({ event }: HeroSectionProps) {
                 href={event.google_form_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-accent text-white px-8 py-4 rounded-full font-semibold hover:bg-accent-light transition-all duration-200 shadow-lg shadow-accent/30"
+                className="inline-flex items-center gap-2 bg-accent text-white px-8 py-4 rounded-full font-bold hover:bg-accent-dark transition-all duration-200 shadow-lg shadow-accent/40"
               >
                 Register Now
               </a>

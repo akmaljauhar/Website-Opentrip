@@ -34,7 +34,7 @@ export default function EventList({ status }: Props) {
         </div>
         <Link
           to="/admin/events/new"
-          className="bg-accent text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-accent-light transition-all duration-200 flex items-center gap-2 shadow-sm shadow-accent/20"
+          className="bg-accent text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-accent-dark transition-all duration-200 flex items-center gap-2 shadow-sm shadow-accent/30"
         >
           <Plus size={18} />
           Create Event

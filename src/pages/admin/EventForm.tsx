@@ -354,7 +354,7 @@ export default function EventForm() {
           <button
             type="submit"
             disabled={saving}
-            className="bg-accent text-white px-8 py-3 rounded-xl font-semibold hover:bg-accent-light transition-all duration-200 disabled:opacity-50 flex items-center gap-2 shadow-sm shadow-accent/20"
+            className="bg-accent text-white px-8 py-3 rounded-xl font-bold hover:bg-accent-dark transition-all duration-200 disabled:opacity-50 flex items-center gap-2 shadow-sm shadow-accent/30"
           >
             <Save size={18} />
             {saving ? 'Saving...' : isEdit ? 'Update Event' : 'Create Event'}

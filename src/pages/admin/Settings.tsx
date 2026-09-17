@@ -173,7 +173,7 @@ export default function Settings() {
               <button
                 onClick={handleContactSave}
                 disabled={contactSaving}
-                className="inline-flex items-center gap-2 bg-accent text-white px-6 py-2.5 rounded-xl text-sm font-semibold hover:bg-accent-light transition-all duration-200 disabled:opacity-50 shadow-sm shadow-accent/20"
+                className="inline-flex items-center gap-2 bg-accent text-white px-6 py-2.5 rounded-xl text-sm font-bold hover:bg-accent-dark transition-all duration-200 disabled:opacity-50 shadow-sm shadow-accent/30"
               >
                 <Save size={16} />
                 {contactSaving ? 'Saving...' : 'Save Contact Info'}
