@@ -12,7 +12,7 @@ function HeroSlide({ event }: { event: EventWithDetails }) {
   return (
     <>
       <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
         {event.banner_url && (
           <img
@@ -51,7 +51,6 @@ function HeroSlide({ event }: { event: EventWithDetails }) {
               <span className="text-sm">{event.event_location}</span>
             </div>
           )}
-          <p className="text-sm text-white/50 mb-6 line-clamp-3">{event.description}</p>
           <div className="flex flex-wrap gap-3">
             <Link
               to={`/events/${event.slug}`}
@@ -124,7 +123,7 @@ export default function HeroSection({ events }: HeroSectionProps) {
     return (
       <section className="relative bg-[#1c1c1c] overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 text-center">
