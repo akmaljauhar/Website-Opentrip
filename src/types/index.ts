@@ -5,6 +5,7 @@ export interface Event {
   title: string
   slug: string
   description: string
+  event_location: string
   poster_url: string | null
   thumbnail_url: string | null
   banner_url: string | null
@@ -24,7 +25,7 @@ export interface EventDate {
 export interface EventRoute {
   id: string
   event_id: string
-  route_name: string
+  city: string
   price: number
   meeting_point: string
   created_at: string

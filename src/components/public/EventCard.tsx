@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Calendar, MapPin, IndianRupee, ArrowUpRight } from 'lucide-react'
+import { Calendar, MapPin, ArrowUpRight } from 'lucide-react'
 import { getSupabaseImageUrl } from '../../lib/supabase'
 import type { EventWithDetails } from '../../types'
 
@@ -10,7 +10,6 @@ interface EventCardProps {
 
 export default function EventCard({ event, showStatus }: EventCardProps) {
   const firstDate = event.event_dates?.[0]?.event_date
-  const firstRoute = event.event_routes?.[0]
 
   const statusColors: Record<string, string> = {
     draft: 'bg-gray-100 text-gray-600',
@@ -24,7 +23,7 @@ export default function EventCard({ event, showStatus }: EventCardProps) {
       to={`/events/${event.slug}`}
       className="group block bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-primary/20"
     >
-      <div className="relative aspect-[16/9] bg-gray-100 overflow-hidden">
+      <div className="relative aspect-[3/2] bg-gray-100 overflow-hidden">
         <img
           src={getSupabaseImageUrl(event.thumbnail_url || event.poster_url || '')}
           alt={event.title}
@@ -58,20 +57,13 @@ export default function EventCard({ event, showStatus }: EventCardProps) {
             })}
           </div>
         )}
-        <h3 className="text-base font-bold text-gray-900 group-hover:text-primary transition-colors line-clamp-1 mb-0.5">
+        <h3 className="text-base font-bold text-gray-900 group-hover:text-primary transition-colors line-clamp-1 mb-1">
           {event.title}
         </h3>
-        <p className="text-xs text-gray-500 line-clamp-2 mb-3">{event.description}</p>
-        {firstRoute && (
-          <div className="flex items-center gap-3 text-xs text-gray-500 pt-2 border-t border-gray-100">
-            <span className="flex items-center gap-1 font-semibold text-primary">
-              <IndianRupee size={12} />
-              IDR {firstRoute.price.toLocaleString()}
-            </span>
-            <span className="flex items-center gap-1">
-              <MapPin size={12} className="text-gray-400" />
-              {firstRoute.meeting_point}
-            </span>
+        {event.event_location && (
+          <div className="flex items-center gap-1 text-gray-500 text-xs">
+            <MapPin size={12} />
+            {event.event_location}
           </div>
         )}
       </div>

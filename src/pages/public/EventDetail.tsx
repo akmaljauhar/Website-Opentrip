@@ -2,6 +2,7 @@ import { useEvent } from '../../hooks/useEvent'
 import { getSupabaseImageUrl } from '../../lib/supabase'
 import { Calendar, MapPin, IndianRupee, ExternalLink, ArrowLeft } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import type { EventRoute } from '../../types'
 
 export default function EventDetail() {
   const { event, loading, error } = useEvent()
@@ -9,7 +10,7 @@ export default function EventDetail() {
   if (loading) {
     return (
       <div className="bg-surface min-h-screen">
-        <div className="bg-primary py-10">
+        <div className="bg-[#1c1c1c] py-10">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-pulse space-y-3">
               <div className="h-5 bg-white/10 rounded w-32" />
@@ -42,9 +43,19 @@ export default function EventDetail() {
     )
   }
 
+  const routesByCity: Record<string, typeof event.event_routes> = (event.event_routes || []).reduce(
+    (acc: Record<string, typeof event.event_routes>, route: typeof event.event_routes[number]) => {
+      const city = route.city || 'Other'
+      if (!acc[city]) acc[city] = []
+      acc[city].push(route)
+      return acc
+    },
+    {} as Record<string, typeof event.event_routes>
+  )
+
   return (
     <div className="bg-surface min-h-screen">
-      <div className="bg-primary relative overflow-hidden">
+      <div className="bg-[#1c1c1c] relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
@@ -62,25 +73,33 @@ export default function EventDetail() {
             <ArrowLeft size={14} /> All Events
           </Link>
           <h1 className="text-3xl md:text-4xl font-extrabold text-white mb-3">{event.title}</h1>
-          {event.event_dates?.length > 0 && (
-            <div className="flex flex-wrap items-center gap-1.5 text-white/70">
-              <Calendar size={16} />
-              {event.event_dates
-                .sort((a, b) => new Date(a.event_date).getTime() - new Date(b.event_date).getTime())
-                .map((date, i) => (
-                  <span key={date.id} className="text-sm">
-                    {new Date(date.event_date).toLocaleDateString('en-US', {
-                      weekday: 'short',
-                      month: 'short',
-                      day: 'numeric',
-                      year: 'numeric',
-                    })}
-                    {i < event.event_dates.length - 1 && <span className="mx-1">·</span>}
-                  </span>
-                ))
-              }
-            </div>
-          )}
+          <div className="flex flex-wrap items-center gap-4 text-white/70 text-sm">
+            {event.event_dates?.length > 0 && (
+              <div className="flex flex-wrap items-center gap-1.5">
+                <Calendar size={14} />
+                {event.event_dates
+                  .sort((a, b) => new Date(a.event_date).getTime() - new Date(b.event_date).getTime())
+                  .map((date, i) => (
+                    <span key={date.id}>
+                      {new Date(date.event_date).toLocaleDateString('en-US', {
+                        weekday: 'short',
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric',
+                      })}
+                      {i < event.event_dates.length - 1 && <span className="mx-1">·</span>}
+                    </span>
+                  ))
+                }
+              </div>
+            )}
+            {event.event_location && (
+              <div className="flex items-center gap-1.5">
+                <MapPin size={14} />
+                <span>{event.event_location}</span>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
@@ -103,27 +122,33 @@ export default function EventDetail() {
           <p className="text-gray-600 leading-relaxed text-sm whitespace-pre-wrap">{event.description}</p>
         </div>
 
-        {event.event_routes?.length > 0 && (
+        {Object.keys(routesByCity).length > 0 && (
           <div className="bg-card rounded-xl p-5 shadow-sm border border-gray-100 mb-5">
             <h2 className="text-lg font-bold text-gray-900 mb-4">Routes & Pricing</h2>
-            <div className="space-y-3">
-              {event.event_routes.map((route) => (
-                <div
-                  key={route.id}
-                  className="flex flex-col sm:flex-row sm:items-center justify-between p-4 bg-surface rounded-lg border border-gray-100"
-                >
-                  <div className="flex items-center gap-3 mb-2 sm:mb-0">
-                    <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-                      <MapPin size={16} className="text-primary" />
-                    </div>
-                    <div>
-                      <p className="font-semibold text-gray-900 text-sm">{route.route_name}</p>
-                      <p className="text-xs text-gray-500">{route.meeting_point}</p>
-                    </div>
+            <div className="space-y-4">
+              {Object.entries(routesByCity).map(([city, routes]) => (
+                <div key={city}>
+                  <div className="flex items-center gap-2 mb-2">
+                    <MapPin size={14} className="text-primary" />
+                    <h3 className="text-sm font-bold text-primary">{city}</h3>
                   </div>
-                  <div className="flex items-center gap-1.5 text-primary font-bold text-sm">
-                    <IndianRupee size={16} />
-                    IDR {route.price.toLocaleString()}
+                  <div className="space-y-2 ml-5">
+                    {routes.map((route: EventRoute) => (
+                      <div
+                        key={route.id}
+                        className="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-surface rounded-lg border border-gray-100"
+                      >
+                        <div className="flex items-center gap-3 mb-2 sm:mb-0">
+                          <div>
+                            <p className="text-xs text-gray-500">{route.meeting_point}</p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-1.5 text-primary font-bold text-sm">
+                          <IndianRupee size={14} />
+                          IDR {route.price.toLocaleString()}
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               ))}
@@ -152,7 +177,7 @@ export default function EventDetail() {
         )}
 
         {event.google_form_url && event.status !== 'previous' && (
-          <div className="bg-primary rounded-xl p-5 text-center">
+          <div className="bg-[#1c1c1c] rounded-xl p-5 text-center">
             <h3 className="text-lg font-bold text-white mb-1">Ready to Join?</h3>
             <p className="text-white/60 text-sm mb-4">Secure your spot now!</p>
             <a

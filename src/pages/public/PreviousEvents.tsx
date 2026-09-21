@@ -6,7 +6,7 @@ export default function PreviousEvents() {
 
   return (
     <div className="bg-surface min-h-screen">
-      <div className="bg-primary py-10">
+      <div className="bg-[#1c1c1c] py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <span className="text-accent text-xs font-semibold uppercase tracking-wider">Our Journey</span>
           <h1 className="text-3xl md:text-4xl font-extrabold text-white mt-0.5">Past Events</h1>

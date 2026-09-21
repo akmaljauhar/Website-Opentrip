@@ -4,7 +4,7 @@ import { supabase } from '../../lib/supabase'
 import slugify from 'slugify'
 import { ImageUploader, DocumentationUploader } from '../../components/admin/EventFormParts'
 import { Plus, X, Save, ArrowLeft } from 'lucide-react'
-import type { EventStatus } from '../../types'
+import type { EventStatus, EventDocumentation } from '../../types'
 
 interface EventDateForm {
   id?: string
@@ -13,7 +13,7 @@ interface EventDateForm {
 
 interface EventRouteForm {
   id?: string
-  route_name: string
+  city: string
   price: number
   meeting_point: string
 }
@@ -25,13 +25,14 @@ export default function EventForm() {
 
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+  const [eventLocation, setEventLocation] = useState('')
   const [status, setStatus] = useState<EventStatus>('draft')
   const [posterUrl, setPosterUrl] = useState<string | null>(null)
   const [thumbnailUrl, setThumbnailUrl] = useState<string | null>(null)
   const [bannerUrl, setBannerUrl] = useState<string | null>(null)
   const [googleFormUrl, setGoogleFormUrl] = useState('')
   const [dates, setDates] = useState<EventDateForm[]>([{ event_date: '' }])
-  const [routes, setRoutes] = useState<EventRouteForm[]>([{ route_name: '', price: 0, meeting_point: '' }])
+  const [routes, setRoutes] = useState<EventRouteForm[]>([{ city: '', price: 0, meeting_point: '' }])
   const [documentation, setDocumentation] = useState<EventDocumentation[]>([])
   const [saving, setSaving] = useState(false)
   const [loading, setLoading] = useState(isEdit)
@@ -48,6 +49,7 @@ export default function EventForm() {
         if (data) {
           setTitle(data.title)
           setDescription(data.description)
+          setEventLocation(data.event_location || '')
           setStatus(data.status)
           setPosterUrl(data.poster_url)
           setThumbnailUrl(data.thumbnail_url)
@@ -55,9 +57,9 @@ export default function EventForm() {
           setGoogleFormUrl(data.google_form_url || '')
           setDates(data.event_dates?.map((d: { id: string; event_date: string }) => ({ id: d.id, event_date: d.event_date })) || [])
           setRoutes(
-            data.event_routes?.map((r: { id: string; route_name: string; price: number; meeting_point: string }) => ({
+            data.event_routes?.map((r: { id: string; city: string; price: number; meeting_point: string }) => ({
               id: r.id,
-              route_name: r.route_name,
+              city: r.city,
               price: r.price,
               meeting_point: r.meeting_point,
             })) || []
@@ -78,7 +80,7 @@ export default function EventForm() {
     setDates(updated)
   }
 
-  const addRoute = () => setRoutes([...routes, { route_name: '', price: 0, meeting_point: '' }])
+  const addRoute = () => setRoutes([...routes, { city: '', price: 0, meeting_point: '' }])
   const removeRoute = (index: number) => setRoutes(routes.filter((_, i) => i !== index))
   const updateRoute = (index: number, field: keyof EventRouteForm, value: string | number) => {
     const updated = [...routes]
@@ -96,6 +98,7 @@ export default function EventForm() {
       title,
       slug,
       description,
+      event_location: eventLocation,
       status,
       poster_url: posterUrl,
       thumbnail_url: thumbnailUrl,
@@ -123,12 +126,12 @@ export default function EventForm() {
       }
 
       await supabase.from('event_routes').delete().eq('event_id', eventId)
-      const validRoutes = routes.filter((r) => r.route_name)
+      const validRoutes = routes.filter((r) => r.city)
       if (validRoutes.length > 0) {
         await supabase.from('event_routes').insert(
           validRoutes.map((r) => ({
             event_id: eventId,
-            route_name: r.route_name,
+            city: r.city,
             price: r.price,
             meeting_point: r.meeting_point,
           }))
@@ -189,6 +192,16 @@ export default function EventForm() {
                 className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none transition-all text-sm"
                 placeholder="Describe your event..."
                 required
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-gray-700 mb-1.5">Event Location</label>
+              <input
+                type="text"
+                value={eventLocation}
+                onChange={(e) => setEventLocation(e.target.value)}
+                className="w-full px-3 py-2.5 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all text-sm"
+                placeholder="e.g. Mount Bromo, East Java"
               />
             </div>
             <div>
@@ -274,13 +287,23 @@ export default function EventForm() {
             {routes.map((route, index) => (
               <div key={index} className="grid grid-cols-1 sm:grid-cols-4 gap-2 items-end p-3 bg-gray-50 rounded-lg">
                 <div>
-                  <label className="block text-[10px] font-semibold text-gray-500 mb-1 uppercase tracking-wider">Route Name</label>
+                  <label className="block text-[10px] font-semibold text-gray-500 mb-1 uppercase tracking-wider">City</label>
                   <input
                     type="text"
-                    value={route.route_name}
-                    onChange={(e) => updateRoute(index, 'route_name', e.target.value)}
+                    value={route.city}
+                    onChange={(e) => updateRoute(index, 'city', e.target.value)}
                     className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-card transition-all text-sm"
-                    placeholder="e.g. Jakarta Route"
+                    placeholder="e.g. Jakarta"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-semibold text-gray-500 mb-1 uppercase tracking-wider">Meeting Point</label>
+                  <input
+                    type="text"
+                    value={route.meeting_point}
+                    onChange={(e) => updateRoute(index, 'meeting_point', e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-card transition-all text-sm"
+                    placeholder="e.g. Jakarta Station"
                   />
                 </div>
                 <div>
@@ -291,16 +314,6 @@ export default function EventForm() {
                     onChange={(e) => updateRoute(index, 'price', Number(e.target.value))}
                     className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-card transition-all text-sm"
                     placeholder="500000"
-                  />
-                </div>
-                <div>
-                  <label className="block text-[10px] font-semibold text-gray-500 mb-1 uppercase tracking-wider">Meeting Point</label>
-                  <input
-                    type="text"
-                    value={route.meeting_point}
-                    onChange={(e) => updateRoute(index, 'meeting_point', e.target.value)}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-card transition-all text-sm"
-                    placeholder="Jakarta"
                   />
                 </div>
                 <div className="flex justify-end">
@@ -370,13 +383,4 @@ export default function EventForm() {
       </form>
     </div>
   )
-}
-
-interface EventDocumentation {
-  id: string
-  event_id: string
-  image_url: string
-  caption: string | null
-  display_order: number
-  created_at: string
 }

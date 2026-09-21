@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useEvents } from '../../hooks/useEvents'
-import { Calendar, TrendingUp, Clock, CheckCircle, Plus, ArrowRight } from 'lucide-react'
+import { Calendar, TrendingUp, Clock, CheckCircle, Plus } from 'lucide-react'
 
 export default function Dashboard() {
   const { events: allEvents, loading } = useEvents()
@@ -54,61 +54,46 @@ export default function Dashboard() {
         <div className="px-5 py-3.5 border-b border-gray-100 flex items-center justify-between">
           <h2 className="text-sm font-bold text-gray-900">All Events</h2>
           <Link to="/admin/events" className="text-sm text-primary font-semibold flex items-center gap-1 hover:text-primary-light">
-            View all <ArrowRight size={14} />
+            View all
           </Link>
         </div>
         {loading ? (
-          <div className="p-6 space-y-3">
+          <div className="p-5 space-y-3">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="h-14 bg-gray-100 rounded-xl animate-pulse" />
+              <div key={i} className="h-12 bg-gray-100 rounded-lg animate-pulse" />
             ))}
           </div>
         ) : allEvents.length === 0 ? (
-          <div className="p-10 text-center">
-            <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-3">
-              <Calendar size={22} className="text-primary" />
-            </div>
-            <p className="text-gray-500 font-medium text-sm mb-1">No events yet</p>
-            <Link to="/admin/events/new" className="text-primary text-sm font-semibold hover:text-primary-light">
-              Create your first event →
-            </Link>
+          <div className="p-8 text-center">
+            <p className="text-gray-400 text-sm">No events yet.</p>
           </div>
         ) : (
           <div className="divide-y divide-gray-100">
-            {allEvents.slice(0, 5).map((event) => {
-              const statusColors: Record<string, string> = {
-                draft: 'bg-gray-100 text-gray-600',
-                open: 'bg-green-50 text-green-700 ring-1 ring-green-200',
-                closed: 'bg-red-50 text-red-700 ring-1 ring-red-200',
-                previous: 'bg-blue-50 text-blue-700 ring-1 ring-blue-200',
-              }
-              return (
-                <div key={event.id} className="px-5 py-3 flex items-center justify-between hover:bg-gray-50 transition-colors">
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center text-primary font-bold text-xs">
-                      {event.title[0]}
-                    </div>
-                    <div>
-                      <p className="font-semibold text-gray-900">{event.title}</p>
-                      <p className="text-xs text-gray-500">
-                        {event.event_dates?.length || 0} dates · {event.event_routes?.length || 0} routes
-                      </p>
-                    </div>
+            {allEvents.slice(0, 5).map((event) => (
+              <Link
+                key={event.id}
+                to={`/admin/events/edit/${event.id}`}
+                className="flex items-center justify-between px-5 py-3 hover:bg-gray-50 transition-colors"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center text-primary font-bold text-xs">
+                    {event.title[0]}
                   </div>
-                  <div className="flex items-center gap-3">
-                    <span className={`text-xs font-semibold px-3 py-1 rounded-full ${statusColors[event.status]}`}>
-                      {event.status.charAt(0).toUpperCase() + event.status.slice(1)}
-                    </span>
-                    <Link
-                      to={`/admin/events/edit/${event.id}`}
-                      className="text-sm text-primary font-semibold hover:text-primary-light px-3 py-1.5 rounded-lg hover:bg-primary/5 transition-colors"
-                    >
-                      Edit
-                    </Link>
+                  <div>
+                    <p className="text-sm font-semibold text-gray-900">{event.title}</p>
+                    <p className="text-xs text-gray-400">{event.event_dates?.length || 0} dates · {event.event_routes?.length || 0} routes</p>
                   </div>
                 </div>
-              )
-            })}
+                <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
+                  event.status === 'open' ? 'bg-green-50 text-green-700' :
+                  event.status === 'draft' ? 'bg-gray-100 text-gray-600' :
+                  event.status === 'closed' ? 'bg-red-50 text-red-700' :
+                  'bg-blue-50 text-blue-700'
+                }`}>
+                  {event.status}
+                </span>
+              </Link>
+            ))}
           </div>
         )}
       </div>

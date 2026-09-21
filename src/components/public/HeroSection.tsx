@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Calendar, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowRight, Calendar, MapPin, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react'
 import { getSupabaseImageUrl } from '../../lib/supabase'
 import type { EventWithDetails } from '../../types'
 
@@ -45,7 +45,13 @@ function HeroSlide({ event }: { event: EventWithDetails }) {
               </span>
             </div>
           )}
-          <p className="text-sm text-white/60 mb-6 line-clamp-3">{event.description}</p>
+          {event.event_location && (
+            <div className="flex items-center gap-2 text-white/60 mb-4">
+              <MapPin size={16} />
+              <span className="text-sm">{event.event_location}</span>
+            </div>
+          )}
+          <p className="text-sm text-white/50 mb-6 line-clamp-3">{event.description}</p>
           <div className="flex flex-wrap gap-3">
             <Link
               to={`/events/${event.slug}`}
@@ -116,7 +122,7 @@ export default function HeroSection({ events }: HeroSectionProps) {
 
   if (events.length === 0) {
     return (
-      <section className="relative bg-primary overflow-hidden">
+      <section className="relative bg-[#1c1c1c] overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
@@ -147,7 +153,7 @@ export default function HeroSection({ events }: HeroSectionProps) {
 
   return (
     <section
-      className="relative bg-primary overflow-hidden min-h-[380px] flex items-center"
+      className="relative bg-[#1c1c1c] overflow-hidden min-h-[380px] flex items-center"
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
