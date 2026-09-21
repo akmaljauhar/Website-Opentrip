@@ -12,18 +12,18 @@ export default function EventCard({ event, showStatus }: EventCardProps) {
   const firstDate = event.event_dates?.[0]?.event_date
 
   const statusColors: Record<string, string> = {
-    draft: 'bg-gray-100 dark:bg-neutral-800 text-gray-600 dark:text-neutral-400',
-    open: 'bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400 ring-1 ring-green-200 dark:ring-green-800',
-    closed: 'bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-400 ring-1 ring-red-200 dark:ring-red-800',
-    previous: 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 ring-1 ring-blue-200 dark:ring-blue-800',
+    draft: 'bg-gray-100 text-gray-600',
+    open: 'bg-green-50 text-green-700 ring-1 ring-green-200',
+    closed: 'bg-red-50 text-red-700 ring-1 ring-red-200',
+    previous: 'bg-blue-50 text-blue-700 ring-1 ring-blue-200',
   }
 
   return (
     <Link
       to={`/events/${event.slug}`}
-      className="group block bg-card dark:bg-[#141414] rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-neutral-800 hover:border-primary/20 dark:hover:border-neutral-700"
+      className="group block bg-card rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-primary/20"
     >
-      <div className="relative aspect-[3/2] bg-gray-100 dark:bg-neutral-900 overflow-hidden">
+      <div className="relative aspect-[3/2] bg-gray-100 overflow-hidden">
         <img
           src={getSupabaseImageUrl(event.thumbnail_url || event.poster_url || '')}
           alt={event.title}
@@ -57,11 +57,11 @@ export default function EventCard({ event, showStatus }: EventCardProps) {
             })}
           </div>
         )}
-        <h3 className="text-base font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors line-clamp-1 mb-1">
+        <h3 className="text-base font-bold text-gray-900 group-hover:text-primary transition-colors line-clamp-1 mb-1">
           {event.title}
         </h3>
         {event.event_location && (
-          <div className="flex items-center gap-1 text-gray-500 dark:text-neutral-500 text-xs">
+          <div className="flex items-center gap-1 text-gray-500 text-xs">
             <MapPin size={12} />
             {event.event_location}
           </div>

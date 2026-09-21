@@ -9,7 +9,7 @@ export default function EventDetail() {
 
   if (loading) {
     return (
-      <div className="bg-surface dark:bg-[#0a0a0a] min-h-screen">
+      <div className="bg-surface min-h-screen">
         <div className="bg-[#1c1c1c] py-10">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-pulse space-y-3">
@@ -20,9 +20,9 @@ export default function EventDetail() {
         </div>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="animate-pulse space-y-4">
-            <div className="bg-gray-200 dark:bg-neutral-800 rounded-xl h-64" />
-            <div className="h-5 bg-gray-200 dark:bg-neutral-800 rounded w-1/3" />
-            <div className="h-4 bg-gray-200 dark:bg-neutral-800 rounded w-3/4" />
+            <div className="bg-gray-200 rounded-xl h-64" />
+            <div className="h-5 bg-gray-200 rounded w-1/3" />
+            <div className="h-4 bg-gray-200 rounded w-3/4" />
           </div>
         </div>
       </div>
@@ -31,10 +31,10 @@ export default function EventDetail() {
 
   if (error || !event) {
     return (
-      <div className="bg-surface dark:bg-[#0a0a0a] min-h-screen flex items-center justify-center px-4">
+      <div className="bg-surface min-h-screen flex items-center justify-center px-4">
         <div className="text-center">
           <h1 className="text-5xl font-extrabold text-primary/20 mb-3">404</h1>
-          <p className="text-gray-500 dark:text-neutral-500 mb-4">Event not found.</p>
+          <p className="text-gray-500 mb-4">Event not found.</p>
           <Link to="/events" className="inline-flex items-center gap-2 text-primary font-semibold hover:text-primary-light text-sm">
             <ArrowLeft size={16} /> Back to Events
           </Link>
@@ -54,7 +54,7 @@ export default function EventDetail() {
   )
 
   return (
-    <div className="bg-surface dark:bg-[#0a0a0a] min-h-screen">
+    <div className="bg-surface min-h-screen">
       <div className="bg-[#1c1c1c] relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
@@ -109,7 +109,7 @@ export default function EventDetail() {
             <img
               src={getSupabaseImageUrl(event.poster_url)}
               alt={event.title}
-              className="w-full rounded-xl shadow-2xl border border-gray-100 dark:border-neutral-800"
+              className="w-full rounded-xl shadow-2xl border border-gray-100"
               onError={(e) => {
                 (e.target as HTMLImageElement).src = 'https://placehold.co/800x400/0d3b4f/ffffff?text=Citravel'
               }}
@@ -117,14 +117,14 @@ export default function EventDetail() {
           </div>
         )}
 
-        <div className="bg-card dark:bg-[#141414] rounded-xl p-5 shadow-sm border border-gray-100 dark:border-neutral-800 mb-5">
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-3">About This Event</h2>
-          <p className="text-gray-600 dark:text-neutral-400 leading-relaxed text-sm whitespace-pre-wrap">{event.description}</p>
+        <div className="bg-card rounded-xl p-5 shadow-sm border border-gray-100 mb-5">
+          <h2 className="text-lg font-bold text-gray-900 mb-3">About This Event</h2>
+          <p className="text-gray-600 leading-relaxed text-sm whitespace-pre-wrap">{event.description}</p>
         </div>
 
         {Object.keys(routesByCity).length > 0 && (
-          <div className="bg-card dark:bg-[#141414] rounded-xl p-5 shadow-sm border border-gray-100 dark:border-neutral-800 mb-5">
-            <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Routes & Pricing</h2>
+          <div className="bg-card rounded-xl p-5 shadow-sm border border-gray-100 mb-5">
+            <h2 className="text-lg font-bold text-gray-900 mb-4">Routes & Pricing</h2>
             <div className="space-y-4">
               {Object.entries(routesByCity).map(([city, routes]) => (
                 <div key={city}>
@@ -136,11 +136,11 @@ export default function EventDetail() {
                     {routes.map((route: EventRoute) => (
                       <div
                         key={route.id}
-                        className="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-surface dark:bg-neutral-900 rounded-lg border border-gray-100 dark:border-neutral-800"
+                        className="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-surface rounded-lg border border-gray-100"
                       >
                         <div className="flex items-center gap-3 mb-2 sm:mb-0">
                           <div>
-                            <p className="text-xs text-gray-500 dark:text-neutral-500">{route.meeting_point}</p>
+                            <p className="text-xs text-gray-500">{route.meeting_point}</p>
                           </div>
                         </div>
                         <div className="flex items-center gap-1.5 text-primary font-bold text-sm">
@@ -157,13 +157,13 @@ export default function EventDetail() {
         )}
 
         {event.event_documentation?.length > 0 && (
-          <div className="bg-card dark:bg-[#141414] rounded-xl p-5 shadow-sm border border-gray-100 dark:border-neutral-800 mb-5">
-            <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Documentation</h2>
+          <div className="bg-card rounded-xl p-5 shadow-sm border border-gray-100 mb-5">
+            <h2 className="text-lg font-bold text-gray-900 mb-4">Documentation</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {event.event_documentation
                 .sort((a, b) => a.display_order - b.display_order)
                 .map((doc) => (
-                  <div key={doc.id} className="aspect-square rounded-lg overflow-hidden border border-gray-100 dark:border-neutral-800">
+                  <div key={doc.id} className="aspect-square rounded-lg overflow-hidden border border-gray-100">
                     <img
                       src={getSupabaseImageUrl(doc.image_url)}
                       alt={doc.caption || ''}

@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 @theme {
   --color-primary: #0d3b4f;
   --color-primary-light: #14566e;
@@ -14,12 +12,9 @@
 }
 
 body {
-  @apply antialiased bg-card text-gray-900;
-  transition: background-color 0.2s, color 0.2s;
-}
-
-.dark body {
-  @apply bg-[#0a0a0a] text-neutral-200;
+  @apply antialiased;
+  background-color: #faf9f7;
+  color: #1a1a1a;
 }
 
 ::selection {

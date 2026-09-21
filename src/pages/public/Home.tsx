@@ -16,7 +16,7 @@ export default function Home() {
         <div className="flex items-end justify-between mb-6">
           <div>
             <span className="text-accent text-xs font-semibold uppercase tracking-wider">Don&apos;t Miss Out</span>
-            <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white mt-0.5">Upcoming Events</h2>
+            <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 mt-0.5">Upcoming Events</h2>
           </div>
           <Link
             to="/events"
@@ -28,13 +28,13 @@ export default function Home() {
         {loadingUpcoming ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="bg-gray-100 dark:bg-neutral-900 rounded-xl h-72 animate-pulse" />
+              <div key={i} className="bg-gray-100 rounded-xl h-72 animate-pulse" />
             ))}
           </div>
         ) : upcomingEvents.length === 0 ? (
-          <div className="text-center py-12 bg-surface dark:bg-[#141414] rounded-xl">
-            <p className="text-gray-400 dark:text-neutral-600 text-lg">No upcoming events at the moment.</p>
-            <p className="text-gray-400 dark:text-neutral-600 text-sm mt-1">Check back soon for new adventures!</p>
+          <div className="text-center py-12 bg-surface rounded-xl">
+            <p className="text-gray-400 text-lg">No upcoming events at the moment.</p>
+            <p className="text-gray-400 text-sm mt-1">Check back soon for new adventures!</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -54,12 +54,12 @@ export default function Home() {
       </section>
 
       {previousEvents.length > 0 && (
-        <section className="bg-surface dark:bg-[#0f0f0f] py-12">
+        <section className="bg-surface py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-end justify-between mb-6">
               <div>
                 <span className="text-accent text-xs font-semibold uppercase tracking-wider">Our Journey</span>
-                <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 dark:text-white mt-0.5">Past Events</h2>
+                <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 mt-0.5">Past Events</h2>
               </div>
               <Link
                 to="/previous-events"
@@ -71,7 +71,7 @@ export default function Home() {
             {loadingPrevious ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {[1, 2, 3].map((i) => (
-                  <div key={i} className="bg-gray-200 dark:bg-neutral-800 rounded-xl h-72 animate-pulse" />
+                  <div key={i} className="bg-gray-200 rounded-xl h-72 animate-pulse" />
                 ))}
               </div>
             ) : (
