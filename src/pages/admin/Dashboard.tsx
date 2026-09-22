@@ -1,18 +1,16 @@
 import { Link } from 'react-router-dom'
 import { useEvents } from '../../hooks/useEvents'
-import { Calendar, TrendingUp, Clock, CheckCircle, Plus } from 'lucide-react'
+import { Calendar, Clock, CheckCircle, Plus } from 'lucide-react'
 
 export default function Dashboard() {
   const { events: allEvents, loading } = useEvents()
   const upcoming = allEvents.filter((e) => e.status === 'open')
   const draft = allEvents.filter((e) => e.status === 'draft')
-  const closed = allEvents.filter((e) => e.status === 'closed')
   const previous = allEvents.filter((e) => e.status === 'previous')
 
   const stats = [
     { label: 'Upcoming', value: upcoming.length, icon: Calendar, lightColor: 'bg-green-50 text-green-700' },
     { label: 'Draft', value: draft.length, icon: Clock, lightColor: 'bg-amber-50 text-amber-700' },
-    { label: 'Closed', value: closed.length, icon: TrendingUp, lightColor: 'bg-red-50 text-red-700' },
     { label: 'Previous', value: previous.length, icon: CheckCircle, lightColor: 'bg-blue-50 text-blue-700' },
   ]
 
@@ -87,7 +85,6 @@ export default function Dashboard() {
                 <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
                   event.status === 'open' ? 'bg-green-50 text-green-700' :
                   event.status === 'draft' ? 'bg-gray-100 text-gray-600' :
-                  event.status === 'closed' ? 'bg-red-50 text-red-700' :
                   'bg-blue-50 text-blue-700'
                 }`}>
                   {event.status}

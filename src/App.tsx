@@ -63,6 +63,7 @@ export default function App() {
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="events" element={<EventList status="open" />} />
+          <Route path="events/draft" element={<EventList status="draft" />} />
           <Route path="events/previous" element={<EventList status="previous" />} />
           <Route path="events/new" element={<EventForm />} />
           <Route path="events/edit/:id" element={<EventForm />} />

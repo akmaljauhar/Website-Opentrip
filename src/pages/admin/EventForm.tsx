@@ -140,7 +140,12 @@ export default function EventForm() {
     }
 
     setSaving(false)
-    navigate('/admin/events')
+    const redirectMap: Record<string, string> = {
+      open: '/admin/events',
+      draft: '/admin/events/draft',
+      previous: '/admin/events/previous',
+    }
+    navigate(redirectMap[status] || '/admin/events')
   }
 
   if (loading) {
@@ -155,7 +160,14 @@ export default function EventForm() {
   return (
     <div>
       <div className="flex items-center gap-3 mb-6">
-        <button onClick={() => navigate('/admin/events')} className="text-gray-400 hover:text-gray-600">
+        <button onClick={() => {
+          const redirectMap: Record<string, string> = {
+            open: '/admin/events',
+            draft: '/admin/events/draft',
+            previous: '/admin/events/previous',
+          }
+          navigate(redirectMap[status] || '/admin/events')
+        }} className="text-gray-400 hover:text-gray-600">
           <ArrowLeft size={18} />
         </button>
         <div>
@@ -213,7 +225,6 @@ export default function EventForm() {
               >
                 <option value="draft">Draft</option>
                 <option value="open">Open</option>
-                <option value="closed">Closed</option>
                 <option value="previous">Previous</option>
               </select>
             </div>
@@ -374,7 +385,14 @@ export default function EventForm() {
           </button>
           <button
             type="button"
-            onClick={() => navigate('/admin/events')}
+            onClick={() => {
+              const redirectMap: Record<string, string> = {
+                open: '/admin/events',
+                draft: '/admin/events/draft',
+                previous: '/admin/events/previous',
+              }
+              navigate(redirectMap[status] || '/admin/events')
+            }}
             className="bg-gray-100 text-gray-700 px-5 py-2.5 rounded-lg font-semibold hover:bg-gray-200 transition-colors text-sm"
           >
             Cancel

@@ -59,7 +59,7 @@ export default function Home() {
             <div className="flex items-end justify-between mb-6">
               <div>
                 <span className="text-accent text-xs font-semibold uppercase tracking-wider">Our Journey</span>
-                <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 mt-0.5">Past Events</h2>
+                <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 mt-0.5">Previous Events</h2>
               </div>
               <Link
                 to="/previous-events"

@@ -14,7 +14,7 @@ create table if not exists events (
   thumbnail_url text,
   banner_url text,
   google_form_url text,
-  status text not null default 'draft' check (status in ('draft', 'open', 'closed', 'previous')),
+  status text not null default 'draft' check (status in ('draft', 'open', 'previous')),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );

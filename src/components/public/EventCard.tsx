@@ -14,7 +14,6 @@ export default function EventCard({ event, showStatus }: EventCardProps) {
   const statusColors: Record<string, string> = {
     draft: 'bg-gray-100 text-gray-600',
     open: 'bg-green-50 text-green-700 ring-1 ring-green-200',
-    closed: 'bg-red-50 text-red-700 ring-1 ring-red-200',
     previous: 'bg-blue-50 text-blue-700 ring-1 ring-blue-200',
   }
 

@@ -9,7 +9,7 @@ export default function PreviousEvents() {
       <div className="bg-primary py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <span className="text-accent text-xs font-semibold uppercase tracking-wider">Our Journey</span>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-white mt-0.5">Past Events</h1>
+          <h1 className="text-3xl md:text-4xl font-extrabold text-white mt-0.5">Previous Events</h1>
           <p className="text-white/50 mt-1.5 max-w-lg text-sm">Relive the memories from our previous adventures.</p>
         </div>
       </div>
@@ -23,7 +23,7 @@ export default function PreviousEvents() {
           </div>
         ) : events.length === 0 ? (
           <div className="text-center py-16 bg-card rounded-xl border border-gray-100">
-            <p className="text-gray-400 text-lg">No past events yet.</p>
+            <p className="text-gray-400 text-lg">No previous events yet.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

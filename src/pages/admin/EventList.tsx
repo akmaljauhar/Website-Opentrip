@@ -6,7 +6,7 @@ import { supabase } from '../../lib/supabase'
 import { Plus, Calendar, MapPin } from 'lucide-react'
 
 interface Props {
-  status?: 'open' | 'previous'
+  status?: 'open' | 'previous' | 'draft'
 }
 
 export default function EventList({ status }: Props) {
@@ -20,9 +20,11 @@ export default function EventList({ status }: Props) {
     refetch()
   }
 
-  const title = status === 'previous' ? 'Past Events' : 'Upcoming Events'
+  const title = status === 'previous' ? 'Previous Events' : status === 'draft' ? 'Draft Events' : 'Upcoming Events'
   const description = status === 'previous'
     ? 'Events that have been completed'
+    : status === 'draft'
+    ? 'Events that are still being prepared'
     : 'Events currently open for registration'
 
   return (
