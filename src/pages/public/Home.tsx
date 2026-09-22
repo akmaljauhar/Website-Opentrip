@@ -85,7 +85,7 @@ export default function Home() {
         </section>
       )}
 
-      <section className="bg-[#1c1c1c] py-12">
+      <section className="bg-primary py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-2xl md:text-3xl font-extrabold text-white mb-3">
             Ready for Your Next Adventure?

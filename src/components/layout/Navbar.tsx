@@ -31,7 +31,7 @@ export default function Navbar() {
                 to={item.to}
                 className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
                   location.pathname === item.to
-                    ? 'bg-gray-900 text-white'
+                    ? 'bg-primary text-white'
                     : 'text-gray-600 hover:text-gray-900 hover:bg-gray-100'
                 }`}
               >

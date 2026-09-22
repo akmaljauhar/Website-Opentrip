@@ -27,7 +27,7 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-[#1c1c1c] flex items-center justify-center px-4 relative overflow-hidden">
+    <div className="min-h-screen bg-primary flex items-center justify-center px-4 relative overflow-hidden">
       <div className="absolute inset-0">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl" />

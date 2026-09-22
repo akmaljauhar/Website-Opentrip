@@ -10,7 +10,7 @@ export default function EventDetail() {
   if (loading) {
     return (
       <div className="bg-surface min-h-screen">
-        <div className="bg-[#1c1c1c] py-10">
+        <div className="bg-primary py-10">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="animate-pulse space-y-3">
               <div className="h-5 bg-white/10 rounded w-32" />
@@ -55,7 +55,7 @@ export default function EventDetail() {
 
   return (
     <div className="bg-surface min-h-screen">
-      <div className="bg-[#1c1c1c] relative overflow-hidden">
+      <div className="bg-primary relative overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
@@ -111,7 +111,7 @@ export default function EventDetail() {
               alt={event.title}
               className="w-full rounded-xl shadow-2xl border border-gray-100"
               onError={(e) => {
-                (e.target as HTMLImageElement).src = 'https://placehold.co/800x400/0d3b4f/ffffff?text=Citravel'
+                (e.target as HTMLImageElement).src = 'https://placehold.co/800x400/15066a/ffffff?text=Citravel'
               }}
             />
           </div>
@@ -177,7 +177,7 @@ export default function EventDetail() {
         )}
 
         {event.google_form_url && event.status !== 'previous' && (
-          <div className="bg-[#1c1c1c] rounded-xl p-5 text-center">
+          <div className="bg-primary rounded-xl p-5 text-center">
             <h3 className="text-lg font-bold text-white mb-1">Ready to Join?</h3>
             <p className="text-white/60 text-sm mb-4">Secure your spot now!</p>
             <a
