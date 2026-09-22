@@ -59,7 +59,7 @@ function HeroSlide({ event }: { event: EventWithDetails }) {
               View Details
               <ArrowRight size={16} />
             </Link>
-            {event.google_form_url && event.status !== 'previous' && (
+            {event.google_form_url && event.status !== 'past' && (
               <a
                 href={event.google_form_url}
                 target="_blank"

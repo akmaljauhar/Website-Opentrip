@@ -14,7 +14,7 @@ create table if not exists events (
   thumbnail_url text,
   banner_url text,
   google_form_url text,
-  status text not null default 'draft' check (status in ('draft', 'open', 'previous')),
+  status text not null default 'draft' check (status in ('draft', 'open', 'past')),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
@@ -68,35 +68,35 @@ alter table event_routes enable row level security;
 alter table event_documentation enable row level security;
 alter table site_settings enable row level security;
 
--- Public can read events that are open or previous
-create policy "Public can view open and previous events"
+-- Public can read events that are open or past
+create policy "Public can view open and past events"
   on events for select
-  using (status in ('open', 'previous'));
+  using (status in ('open', 'past'));
 
--- Public can view dates for open and previous events
+-- Public can view dates for open and past events
 create policy "Public can view dates for open events"
   on event_dates for select
   using (
     event_id in (
-      select id from events where status in ('open', 'previous')
+      select id from events where status in ('open', 'past')
     )
   );
 
--- Public can view routes for open and previous events
+-- Public can view routes for open and past events
 create policy "Public can view routes for open events"
   on event_routes for select
   using (
     event_id in (
-      select id from events where status in ('open', 'previous')
+      select id from events where status in ('open', 'past')
     )
   );
 
--- Public can view documentation for previous events
-create policy "Public can view documentation for previous events"
+-- Public can view documentation for past events
+create policy "Public can view documentation for past events"
   on event_documentation for select
   using (
     event_id in (
-      select id from events where status = 'previous'
+      select id from events where status = 'past'
     )
   );
 

@@ -24,7 +24,7 @@ export default function Navbar() {
             {[
               { to: '/', label: 'Home' },
               { to: '/events', label: 'Events' },
-              { to: '/previous-events', label: 'Previous Events' },
+              { to: '/past-events', label: 'Past Events' },
             ].map((item) => (
               <Link
                 key={item.to}
@@ -57,7 +57,7 @@ export default function Navbar() {
             {[
               { to: '/', label: 'Home' },
               { to: '/events', label: 'Events' },
-              { to: '/previous-events', label: 'Previous Events' },
+              { to: '/past-events', label: 'Past Events' },
             ].map((item) => (
               <Link
                 key={item.to}

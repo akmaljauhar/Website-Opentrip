@@ -125,7 +125,7 @@ export default function Footer() {
               {[
                 { to: '/', label: 'Home' },
                 { to: '/events', label: 'Events' },
-                { to: '/previous-events', label: 'Previous Events' },
+                { to: '/past-events', label: 'Past Events' },
               ].map((item) => (
                 <li key={item.to}>
                   <Link to={item.to} className="text-white/60 hover:text-white transition-colors text-sm">

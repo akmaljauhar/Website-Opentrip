@@ -143,7 +143,7 @@ export default function EventForm() {
     const redirectMap: Record<string, string> = {
       open: '/admin/events',
       draft: '/admin/events/draft',
-      previous: '/admin/events/previous',
+      past: '/admin/events/past',
     }
     navigate(redirectMap[status] || '/admin/events')
   }
@@ -164,7 +164,7 @@ export default function EventForm() {
           const redirectMap: Record<string, string> = {
             open: '/admin/events',
             draft: '/admin/events/draft',
-            previous: '/admin/events/previous',
+            past: '/admin/events/past',
           }
           navigate(redirectMap[status] || '/admin/events')
         }} className="text-gray-400 hover:text-gray-600">
@@ -225,7 +225,7 @@ export default function EventForm() {
               >
                 <option value="draft">Draft</option>
                 <option value="open">Open</option>
-                <option value="previous">Previous</option>
+                <option value="past">Past</option>
               </select>
             </div>
           </div>
@@ -389,7 +389,7 @@ export default function EventForm() {
               const redirectMap: Record<string, string> = {
                 open: '/admin/events',
                 draft: '/admin/events/draft',
-                previous: '/admin/events/previous',
+                past: '/admin/events/past',
               }
               navigate(redirectMap[status] || '/admin/events')
             }}

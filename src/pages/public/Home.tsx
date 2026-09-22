@@ -6,7 +6,7 @@ import { ArrowRight } from 'lucide-react'
 
 export default function Home() {
   const { events: upcomingEvents, loading: loadingUpcoming } = useEvents('open')
-  const { events: previousEvents, loading: loadingPrevious } = useEvents('previous')
+  const { events: pastEvents, loading: loadingPast } = useEvents('past')
 
   return (
     <div>
@@ -53,22 +53,22 @@ export default function Home() {
         </div>
       </section>
 
-      {previousEvents.length > 0 && (
+      {pastEvents.length > 0 && (
         <section className="bg-surface py-12">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-end justify-between mb-6">
               <div>
                 <span className="text-accent text-xs font-semibold uppercase tracking-wider">Our Journey</span>
-                <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 mt-0.5">Previous Events</h2>
+                <h2 className="text-2xl md:text-3xl font-extrabold text-gray-900 mt-0.5">Past Events</h2>
               </div>
               <Link
-                to="/previous-events"
+                to="/past-events"
                 className="hidden sm:inline-flex items-center gap-1.5 text-primary font-semibold text-sm hover:text-primary-light transition-colors"
               >
                 View all <ArrowRight size={14} />
               </Link>
             </div>
-            {loadingPrevious ? (
+            {loadingPast ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {[1, 2, 3].map((i) => (
                   <div key={i} className="bg-gray-200 rounded-xl h-72 animate-pulse" />
@@ -76,7 +76,7 @@ export default function Home() {
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {previousEvents.slice(0, 3).map((event) => (
+                {pastEvents.slice(0, 3).map((event) => (
                   <EventCard key={event.id} event={event} />
                 ))}
               </div>

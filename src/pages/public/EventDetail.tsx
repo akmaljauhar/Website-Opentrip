@@ -176,7 +176,7 @@ export default function EventDetail() {
           </div>
         )}
 
-        {event.google_form_url && event.status !== 'previous' && (
+        {event.google_form_url && event.status !== 'past' && (
           <div className="bg-primary rounded-xl p-5 text-center">
             <h3 className="text-lg font-bold text-white mb-1">Ready to Join?</h3>
             <p className="text-white/60 text-sm mb-4">Secure your spot now!</p>

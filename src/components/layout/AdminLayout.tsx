@@ -23,9 +23,9 @@ export default function AdminLayout() {
 
   const navItems = [
     { to: '/admin', label: 'Dashboard', icon: LayoutDashboard, exact: true },
-    { to: '/admin/events', label: 'Events', icon: Calendar },
-    { to: '/admin/events/draft', label: 'Draft Events', icon: Calendar },
-    { to: '/admin/events/previous', label: 'Previous Events', icon: Calendar },
+    { to: '/admin/events', label: 'Open Events', icon: Calendar, exact: true },
+    { to: '/admin/events/draft', label: 'Draft Events', icon: Calendar, exact: true },
+    { to: '/admin/events/past', label: 'Past Events', icon: Calendar, exact: true },
     { to: '/admin/settings', label: 'Settings', icon: Settings },
   ]
 

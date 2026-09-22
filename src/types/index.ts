@@ -1,4 +1,4 @@
-export type EventStatus = 'draft' | 'open' | 'previous'
+export type EventStatus = 'draft' | 'open' | 'past'
 
 export interface Event {
   id: string

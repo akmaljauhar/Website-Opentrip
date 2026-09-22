@@ -6,12 +6,12 @@ export default function Dashboard() {
   const { events: allEvents, loading } = useEvents()
   const upcoming = allEvents.filter((e) => e.status === 'open')
   const draft = allEvents.filter((e) => e.status === 'draft')
-  const previous = allEvents.filter((e) => e.status === 'previous')
+  const past = allEvents.filter((e) => e.status === 'past')
 
   const stats = [
     { label: 'Upcoming', value: upcoming.length, icon: Calendar, lightColor: 'bg-green-50 text-green-700' },
     { label: 'Draft', value: draft.length, icon: Clock, lightColor: 'bg-amber-50 text-amber-700' },
-    { label: 'Previous', value: previous.length, icon: CheckCircle, lightColor: 'bg-blue-50 text-blue-700' },
+    { label: 'Past', value: past.length, icon: CheckCircle, lightColor: 'bg-blue-50 text-blue-700' },
   ]
 
   return (

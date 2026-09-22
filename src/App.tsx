@@ -8,7 +8,7 @@ import AdminLayout from './components/layout/AdminLayout'
 import Home from './pages/public/Home'
 import Events from './pages/public/Events'
 import EventDetail from './pages/public/EventDetail'
-import PreviousEvents from './pages/public/PreviousEvents'
+import PastEvents from './pages/public/PastEvents'
 
 import Login from './pages/admin/Login'
 import Dashboard from './pages/admin/Dashboard'
@@ -49,8 +49,8 @@ export default function App() {
                   <Route path="/" element={<Home />} />
                   <Route path="/events" element={<Events />} />
                   <Route path="/events/:slug" element={<EventDetail />} />
-                  <Route path="/previous-events" element={<PreviousEvents />} />
-                  <Route path="/previous-events/:slug" element={<EventDetail />} />
+                  <Route path="/past-events" element={<PastEvents />} />
+                  <Route path="/past-events/:slug" element={<EventDetail />} />
                 </Routes>
               </main>
               <Footer />
@@ -64,7 +64,7 @@ export default function App() {
           <Route index element={<Dashboard />} />
           <Route path="events" element={<EventList status="open" />} />
           <Route path="events/draft" element={<EventList status="draft" />} />
-          <Route path="events/previous" element={<EventList status="previous" />} />
+          <Route path="events/past" element={<EventList status="past" />} />
           <Route path="events/new" element={<EventForm />} />
           <Route path="events/edit/:id" element={<EventForm />} />
           <Route path="settings" element={<Settings />} />
