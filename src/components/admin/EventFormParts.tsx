@@ -168,6 +168,7 @@ export function DocumentationUploader({
               className="w-full h-full object-cover"
             />
             <button
+              type="button"
               onClick={() => handleDelete(doc)}
               className="absolute top-2 right-2 bg-red-500 text-white p-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
             >
