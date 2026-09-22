@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../../lib/supabase'
-import Logo from './Logo'
 
 interface ContactInfo {
   email: string
@@ -96,12 +95,10 @@ export default function Footer() {
   return (
     <footer className="bg-primary text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="md:col-span-2">
-            <div className="inline-flex bg-white rounded-lg px-3 py-1.5 mb-4">
-              <Logo className="h-8 w-auto" />
-            </div>
-            <p className="text-white/60 text-sm leading-relaxed max-w-sm">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="min-w-0 pl-8">
+            <h4 className="text-white font-semibold mb-3 text-xs uppercase tracking-wider">About</h4>
+            <p className="text-white/60 text-sm leading-relaxed">
               Find Your Alonica. Your trusted partner for amazing events and trips.
               Discover unforgettable experiences with Citravel.
             </p>
@@ -119,7 +116,7 @@ export default function Footer() {
               ))}
             </div>
           </div>
-          <div>
+          <div className="pl-16">
             <h4 className="text-white font-semibold mb-3 text-xs uppercase tracking-wider">Navigate</h4>
             <ul className="space-y-2">
               {[
