@@ -95,7 +95,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-primary text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
             <div className="inline-flex bg-white rounded-lg px-3 py-1.5 mb-4">
@@ -144,7 +144,7 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        <div className="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-3">
+        <div className="mt-4 pt-4 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-2">
           <p className="text-white/40 text-sm">
             &copy; {new Date().getFullYear()} Citravel. All rights reserved.
           </p>

@@ -57,11 +57,13 @@ export function ImageUploader({
   label: string
 }) {
   const [uploading, setUploading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
 
+    setError(null)
     setUploading(true)
     const filePath = `${eventId}/${folder}/${Date.now()}-${file.name}`
 
@@ -69,7 +71,9 @@ export function ImageUploader({
       .from('events')
       .upload(filePath, file, { upsert: true })
 
-    if (!error) {
+    if (error) {
+      setError(error.message)
+    } else {
       const { data } = supabase.storage.from('events').getPublicUrl(filePath)
       onUpload(data.publicUrl)
     }
@@ -96,18 +100,21 @@ export function ImageUploader({
             </div>
           )}
         </div>
-        <label className="cursor-pointer">
-          <span className="block px-4 py-2.5 text-sm font-semibold text-primary bg-primary/5 border border-primary/20 rounded-xl hover:bg-primary/10 transition-colors">
-            {uploading ? 'Uploading...' : currentUrl ? 'Change' : 'Upload'}
-          </span>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleUpload}
-            className="hidden"
-            disabled={uploading}
-          />
-        </label>
+        <div>
+          <label className="cursor-pointer">
+            <span className="block px-4 py-2.5 text-sm font-semibold text-primary bg-primary/5 border border-primary/20 rounded-xl hover:bg-primary/10 transition-colors">
+              {uploading ? 'Uploading...' : currentUrl ? 'Change' : 'Upload'}
+            </span>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleUpload}
+              className="hidden"
+              disabled={uploading}
+            />
+          </label>
+          {error && <p className="text-xs text-red-500 mt-1.5">{error}</p>}
+        </div>
       </div>
     </div>
   )
@@ -123,12 +130,16 @@ export function DocumentationUploader({
   onUpdate: () => void
 }) {
   const [uploading, setUploading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (!files) return
 
+    setError(null)
     setUploading(true)
+    const failedFiles: string[] = []
+
     for (let i = 0; i < files.length; i++) {
       const file = files[i]
       const filePath = `${eventId}/documentation/${Date.now()}-${file.name}`
@@ -137,7 +148,9 @@ export function DocumentationUploader({
         .from('events')
         .upload(filePath, file, { upsert: true })
 
-      if (!error) {
+      if (error) {
+        failedFiles.push(file.name)
+      } else {
         const { data } = supabase.storage.from('events').getPublicUrl(filePath)
         await supabase.from('event_documentation').insert({
           event_id: eventId,
@@ -146,6 +159,10 @@ export function DocumentationUploader({
           display_order: docs.length + i,
         })
       }
+    }
+
+    if (failedFiles.length > 0) {
+      setError(`Failed to upload: ${failedFiles.join(', ')}`)
     }
     setUploading(false)
     onUpdate()
@@ -190,6 +207,7 @@ export function DocumentationUploader({
           disabled={uploading}
         />
       </label>
+      {error && <p className="text-xs text-red-500 mt-2">{error}</p>}
     </div>
   )
 }
