@@ -95,8 +95,8 @@ export default function Footer() {
   return (
     <footer className="bg-primary text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="min-w-0 pl-20">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-[70px]">
+          <div className="min-w-0 pl-[70px]">
             <h4 className="text-white font-semibold mb-3 text-xs uppercase tracking-wider">About</h4>
             <p className="text-white/60 text-sm leading-relaxed">
               Find Your Alonica. Your trusted partner for amazing events and trips.
