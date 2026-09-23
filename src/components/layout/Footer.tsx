@@ -141,7 +141,7 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        <div className="mt-4 pt-4 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-2">
+        <div className="mt-8 pt-4 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-2">
           <p className="text-white/40 text-sm">
             &copy; {new Date().getFullYear()} Citravel. All rights reserved.
           </p>
