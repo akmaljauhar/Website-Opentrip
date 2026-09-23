@@ -102,7 +102,7 @@ export default function Footer() {
               Find Your Alonica. Your trusted partner for amazing events and trips.
               Discover unforgettable experiences with Citravel.
             </p>
-            <div className="flex gap-2.5 mt-4">
+            <div className="flex gap-2.5 mt-8">
               {socialItems.filter((s) => s.url).map((social) => (
                 <a
                   key={social.name}
