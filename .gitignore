@@ -14,7 +14,8 @@ dist-ssr
 *.local
 
 # Environment variables
-.env
+# NOTE: .env only contains public VITE_* values (publishable key) — safe to commit.
+# NEVER commit service_role/secret keys — use .env.local for those.
 .env.local
 .env.*.local
 
