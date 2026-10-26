@@ -15,6 +15,7 @@ interface EventRouteForm {
   id?: string
   city: string
   price: number
+  price_max: number | null
   meeting_point: string
 }
 
@@ -32,7 +33,7 @@ export default function EventForm() {
   const [bannerUrl, setBannerUrl] = useState<string | null>(null)
   const [googleFormUrl, setGoogleFormUrl] = useState('')
   const [dates, setDates] = useState<EventDateForm[]>([{ event_date: '' }])
-  const [routes, setRoutes] = useState<EventRouteForm[]>([{ city: '', price: 0, meeting_point: '' }])
+  const [routes, setRoutes] = useState<EventRouteForm[]>([{ city: '', price: 0, price_max: null, meeting_point: '' }])
   const [documentation, setDocumentation] = useState<EventDocumentation[]>([])
   const [saving, setSaving] = useState(false)
   const [loading, setLoading] = useState(isEdit)
@@ -57,10 +58,11 @@ export default function EventForm() {
           setGoogleFormUrl(data.google_form_url || '')
           setDates(data.event_dates?.map((d: { id: string; event_date: string }) => ({ id: d.id, event_date: d.event_date })) || [])
           setRoutes(
-            data.event_routes?.map((r: { id: string; city: string; price: number; meeting_point: string }) => ({
+            data.event_routes?.map((r: { id: string; city: string; price: number; price_max: number | null; meeting_point: string }) => ({
               id: r.id,
               city: r.city,
               price: r.price,
+              price_max: r.price_max,
               meeting_point: r.meeting_point,
             })) || []
           )
@@ -80,9 +82,9 @@ export default function EventForm() {
     setDates(updated)
   }
 
-  const addRoute = () => setRoutes([...routes, { city: '', price: 0, meeting_point: '' }])
+  const addRoute = () => setRoutes([...routes, { city: '', price: 0, price_max: null, meeting_point: '' }])
   const removeRoute = (index: number) => setRoutes(routes.filter((_, i) => i !== index))
-  const updateRoute = (index: number, field: keyof EventRouteForm, value: string | number) => {
+  const updateRoute = (index: number, field: keyof EventRouteForm, value: string | number | null) => {
     const updated = [...routes]
     updated[index] = { ...updated[index], [field]: value } as EventRouteForm
     setRoutes(updated)
@@ -90,6 +92,14 @@ export default function EventForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    const invalidRange = routes.find((r) => r.city && r.price_max !== null && r.price_max < r.price)
+    if (invalidRange) {
+      alert(`Max price for "${invalidRange.city}" is lower than the min price. Please fix it.`)
+      setSaving(false)
+      return
+    }
+
     setSaving(true)
 
     const slug = slugify(title, { lower: true, strict: true })
@@ -133,6 +143,7 @@ export default function EventForm() {
             event_id: eventId,
             city: r.city,
             price: r.price,
+            price_max: r.price_max,
             meeting_point: r.meeting_point,
           }))
         )
@@ -296,7 +307,7 @@ export default function EventForm() {
           </div>
           <div className="space-y-3">
             {routes.map((route, index) => (
-              <div key={index} className="grid grid-cols-1 sm:grid-cols-4 gap-2 items-end p-3 bg-gray-50 rounded-lg">
+              <div key={index} className="grid grid-cols-1 sm:grid-cols-5 gap-2 items-end p-3 bg-gray-50 rounded-lg">
                 <div>
                   <label className="block text-[10px] font-semibold text-gray-500 mb-1 uppercase tracking-wider">City</label>
                   <input
@@ -321,10 +332,22 @@ export default function EventForm() {
                   <label className="block text-[10px] font-semibold text-gray-500 mb-1 uppercase tracking-wider">Price (IDR)</label>
                   <input
                     type="number"
+                    min="0"
                     value={route.price || ''}
                     onChange={(e) => updateRoute(index, 'price', Number(e.target.value))}
                     className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-card transition-all text-sm"
-                    placeholder="500000"
+                    placeholder="10000"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[10px] font-semibold text-gray-500 mb-1 uppercase tracking-wider">Max Price (optional)</label>
+                  <input
+                    type="number"
+                    min="0"
+                    value={route.price_max ?? ''}
+                    onChange={(e) => updateRoute(index, 'price_max', e.target.value === '' ? null : Number(e.target.value))}
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary bg-card transition-all text-sm"
+                    placeholder="15000"
                   />
                 </div>
                 <div className="flex justify-end">

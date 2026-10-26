@@ -146,6 +146,7 @@ export default function EventDetail() {
                         <div className="flex items-center gap-1.5 text-primary font-bold text-sm">
                           <IndianRupee size={14} />
                           IDR {route.price.toLocaleString()}
+                          {route.price_max != null && <> – {route.price_max.toLocaleString()}</>}
                         </div>
                       </div>
                     ))}

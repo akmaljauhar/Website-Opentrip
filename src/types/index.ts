@@ -27,6 +27,7 @@ export interface EventRoute {
   event_id: string
   city: string
   price: number
+  price_max: number | null
   meeting_point: string
   created_at: string
 }
