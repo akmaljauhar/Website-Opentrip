@@ -1,6 +1,6 @@
 import { useEvent } from '../../hooks/useEvent'
 import { getSupabaseImageUrl } from '../../lib/supabase'
-import { Calendar, MapPin, IndianRupee, ExternalLink, ArrowLeft } from 'lucide-react'
+import { Calendar, MapPin, ExternalLink, ArrowLeft } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import type { EventRoute } from '../../types'
 
@@ -144,7 +144,6 @@ export default function EventDetail() {
                           </div>
                         </div>
                         <div className="flex items-center gap-1.5 text-primary font-bold text-sm">
-                          <IndianRupee size={14} />
                           IDR {route.price.toLocaleString()}
                           {route.price_max != null && <> – {route.price_max.toLocaleString()}</>}
                         </div>
