@@ -4,6 +4,7 @@ import { supabase, getSupabaseImageUrl } from './lib/supabase'
 import Navbar from './components/layout/Navbar'
 import Footer from './components/layout/Footer'
 import AdminLayout from './components/layout/AdminLayout'
+import ScrollToTop from './components/ScrollToTop'
 
 import Home from './pages/public/Home'
 import Events from './pages/public/Events'
@@ -37,6 +38,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <ScrollToTop />
       <Routes>
         {/* Public routes */}
         <Route
