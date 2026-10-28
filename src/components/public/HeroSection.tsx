@@ -152,7 +152,7 @@ export default function HeroSection({ events }: HeroSectionProps) {
 
   return (
     <section
-      className="relative bg-[#1c1c1c] overflow-hidden min-h-[380px] flex items-center"
+      className="relative bg-[#1c1c1c] overflow-hidden min-h-[380px] aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9] flex items-center"
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
