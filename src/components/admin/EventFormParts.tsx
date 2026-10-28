@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { X } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import { getSupabaseImageUrl } from '../../lib/supabase'
+import { toWebImage } from '../../lib/imageUtils'
 import type { EventDocumentation } from '../../types'
 
 interface DeleteDialogProps {
@@ -60,22 +61,27 @@ export function ImageUploader({
   const [error, setError] = useState<string | null>(null)
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
+    const raw = e.target.files?.[0]
+    if (!raw) return
 
     setError(null)
     setUploading(true)
-    const filePath = `${eventId}/${folder}/${Date.now()}-${file.name}`
+    try {
+      const file = await toWebImage(raw)
+      const filePath = `${eventId}/${folder}/${Date.now()}-${file.name}`
 
-    const { error } = await supabase.storage
-      .from('events')
-      .upload(filePath, file, { upsert: true })
+      const { error } = await supabase.storage
+        .from('events')
+        .upload(filePath, file, { upsert: true })
 
-    if (error) {
-      setError(error.message)
-    } else {
-      const { data } = supabase.storage.from('events').getPublicUrl(filePath)
-      onUpload(data.publicUrl)
+      if (error) {
+        setError(error.message)
+      } else {
+        const { data } = supabase.storage.from('events').getPublicUrl(filePath)
+        onUpload(data.publicUrl)
+      }
+    } catch {
+      setError('Failed to process image. Please try uploading a JPG or PNG.')
     }
     setUploading(false)
   }
@@ -141,23 +147,27 @@ export function DocumentationUploader({
     const failedFiles: string[] = []
 
     for (let i = 0; i < files.length; i++) {
-      const file = files[i]
-      const filePath = `${eventId}/documentation/${Date.now()}-${file.name}`
+      try {
+        const file = await toWebImage(files[i])
+        const filePath = `${eventId}/documentation/${Date.now()}-${file.name}`
 
-      const { error } = await supabase.storage
-        .from('events')
-        .upload(filePath, file, { upsert: true })
+        const { error } = await supabase.storage
+          .from('events')
+          .upload(filePath, file, { upsert: true })
 
-      if (error) {
-        failedFiles.push(file.name)
-      } else {
-        const { data } = supabase.storage.from('events').getPublicUrl(filePath)
-        await supabase.from('event_documentation').insert({
-          event_id: eventId,
-          image_url: data.publicUrl,
-          caption: file.name,
-          display_order: docs.length + i,
-        })
+        if (error) {
+          failedFiles.push(files[i].name)
+        } else {
+          const { data } = supabase.storage.from('events').getPublicUrl(filePath)
+          await supabase.from('event_documentation').insert({
+            event_id: eventId,
+            image_url: data.publicUrl,
+            caption: file.name,
+            display_order: docs.length + i,
+          })
+        }
+      } catch {
+        failedFiles.push(files[i].name)
       }
     }
 

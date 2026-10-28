@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { supabase, getSupabaseImageUrl } from '../../lib/supabase'
+import { toWebImage } from '../../lib/imageUtils'
 import { Upload, Check, Save } from 'lucide-react'
 
 export default function Settings() {
@@ -41,28 +42,33 @@ export default function Settings() {
   }, [])
 
   const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
+    const raw = e.target.files?.[0]
+    if (!raw) return
 
     setUploading(true)
-    const filePath = `site/logo-${Date.now()}-${file.name}`
+    try {
+      const file = await toWebImage(raw)
+      const filePath = `site/logo-${Date.now()}-${file.name}`
 
-    const { error } = await supabase.storage
-      .from('events')
-      .upload(filePath, file, { upsert: true })
+      const { error } = await supabase.storage
+        .from('events')
+        .upload(filePath, file, { upsert: true })
 
-    if (!error) {
-      const { data } = supabase.storage.from('events').getPublicUrl(filePath)
+      if (!error) {
+        const { data } = supabase.storage.from('events').getPublicUrl(filePath)
 
-      const { error: upsertError } = await supabase
-        .from('site_settings')
-        .upsert({ key: 'logo_url', value: data.publicUrl, updated_at: new Date().toISOString() })
+        const { error: upsertError } = await supabase
+          .from('site_settings')
+          .upsert({ key: 'logo_url', value: data.publicUrl, updated_at: new Date().toISOString() })
 
-      if (!upsertError) {
-        setLogoUrl(data.publicUrl)
-        setSaved(true)
-        setTimeout(() => setSaved(false), 3000)
+        if (!upsertError) {
+          setLogoUrl(data.publicUrl)
+          setSaved(true)
+          setTimeout(() => setSaved(false), 3000)
+        }
       }
+    } catch {
+      // image conversion failed
     }
     setUploading(false)
   }
