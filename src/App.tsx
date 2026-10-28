@@ -37,7 +37,7 @@ export default function App() {
   }, [])
 
   return (
-    <div className="min-h-screen flex flex-col overflow-x-hidden">
+    <div className="min-h-screen flex flex-col">
       <ScrollToTop />
       <Routes>
         {/* Public routes */}

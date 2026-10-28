@@ -68,7 +68,7 @@ export default function EventDetail() {
             />
           )}
         </div>
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 md:py-20">
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <Link to="/events" className="inline-flex items-center gap-1.5 text-white/60 hover:text-white text-xs mb-4 transition-colors">
             <ArrowLeft size={14} /> All Events
           </Link>
@@ -105,7 +105,7 @@ export default function EventDetail() {
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {event.poster_url && (
-          <div className="mb-8 -mt-20 relative z-10">
+          <div className="mb-8 -mt-12 relative z-10">
             <img
               src={getSupabaseImageUrl(event.poster_url)}
               alt={event.title}

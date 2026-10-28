@@ -18,7 +18,7 @@ function HeroSlide({ event }: { event: EventWithDetails }) {
           <img
             src={getSupabaseImageUrl(event.banner_url)}
             alt=""
-            className="absolute inset-0 w-full h-full object-contain opacity-25"
+            className="absolute inset-0 w-full h-full object-cover opacity-25"
             onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
           />
         )}
@@ -152,7 +152,7 @@ export default function HeroSection({ events }: HeroSectionProps) {
 
   return (
     <section
-      className="relative bg-[#1c1c1c] overflow-hidden h-[420px] md:h-[600px] flex items-center"
+      className="relative bg-[#1c1c1c] overflow-hidden min-h-[380px] flex items-center"
       onTouchStart={onTouchStart}
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEnd}
