@@ -126,68 +126,68 @@ export function ImageUploader({
   )
 }
 
-export function DocumentationUploader({
-  eventId,
-  docs,
-  onUpdate,
-}: {
-  eventId: string
-  docs: EventDocumentation[]
-  onUpdate: () => void
-}) {
-  const [uploading, setUploading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+export interface StagedDocFile {
+  id: string
+  file: File
+  previewUrl: string
+}
 
-  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+export function DocumentationUploader({
+  docs,
+  deletedIds,
+  stagedFiles,
+  onAdd,
+  onDelete,
+  onDeleteStaged,
+}: {
+  docs: EventDocumentation[]
+  deletedIds: string[]
+  stagedFiles: StagedDocFile[]
+  onAdd: (files: StagedDocFile[]) => void
+  onDelete: (id: string) => void
+  onDeleteStaged: (id: string) => void
+}) {
+  const [error, setError] = useState<string | null>(null)
+  const [processing, setProcessing] = useState(false)
+
+  const handleFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
-    if (!files) return
+    if (!files || files.length === 0) return
 
     setError(null)
-    setUploading(true)
+    setProcessing(true)
     const failedFiles: string[] = []
+    const staged: StagedDocFile[] = []
 
-    for (let i = 0; i < files.length; i++) {
+    for (const raw of Array.from(files)) {
       try {
-        const file = await toWebImage(files[i])
-        const filePath = `${eventId}/documentation/${Date.now()}-${file.name}`
-
-        const { error } = await supabase.storage
-          .from('events')
-          .upload(filePath, file, { upsert: true })
-
-        if (error) {
-          failedFiles.push(files[i].name)
-        } else {
-          const { data } = supabase.storage.from('events').getPublicUrl(filePath)
-          await supabase.from('event_documentation').insert({
-            event_id: eventId,
-            image_url: data.publicUrl,
-            caption: file.name,
-            display_order: docs.length + i,
-          })
-        }
+        const file = await toWebImage(raw)
+        staged.push({
+          id: `staged-${Date.now()}-${Math.random().toString(36).slice(2)}`,
+          file,
+          previewUrl: URL.createObjectURL(file),
+        })
       } catch {
-        failedFiles.push(files[i].name)
+        failedFiles.push(raw.name)
       }
     }
 
     if (failedFiles.length > 0) {
-      setError(`Failed to upload: ${failedFiles.join(', ')}`)
+      setError(`Failed to process: ${failedFiles.join(', ')}`)
     }
-    setUploading(false)
-    onUpdate()
+    if (staged.length > 0) onAdd(staged)
+    setProcessing(false)
+    e.target.value = ''
   }
 
-  const handleDelete = async (doc: EventDocumentation) => {
-    await supabase.from('event_documentation').delete().eq('id', doc.id)
-    onUpdate()
-  }
+  const visibleDocs = docs.filter((doc) => !deletedIds.includes(doc.id))
+  const hasChanges = stagedFiles.length > 0 || deletedIds.length > 0
 
   return (
     <div>
       <label className="block text-sm font-semibold text-gray-700 mb-2">Documentation</label>
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4">
-        {docs.map((doc) => (
+        {visibleDocs.map((doc) => (
           <div key={doc.id} className="relative group aspect-square rounded-xl overflow-hidden border border-gray-200">
             <img
               src={getSupabaseImageUrl(doc.image_url)}
@@ -196,7 +196,29 @@ export function DocumentationUploader({
             />
             <button
               type="button"
-              onClick={() => handleDelete(doc)}
+              onClick={() => onDelete(doc.id)}
+              className="absolute top-2 right-2 bg-red-500 text-white p-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
+            >
+              <X size={12} />
+            </button>
+          </div>
+        ))}
+        {stagedFiles.map((staged) => (
+          <div
+            key={staged.id}
+            className="relative group aspect-square rounded-xl overflow-hidden border-2 border-dashed border-primary/40"
+          >
+            <img
+              src={staged.previewUrl}
+              alt={staged.file.name}
+              className="w-full h-full object-cover"
+            />
+            <span className="absolute bottom-1.5 left-1.5 bg-primary text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+              New
+            </span>
+            <button
+              type="button"
+              onClick={() => onDeleteStaged(staged.id)}
               className="absolute top-2 right-2 bg-red-500 text-white p-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity shadow-lg"
             >
               <X size={12} />
@@ -206,18 +228,23 @@ export function DocumentationUploader({
       </div>
       <label className="cursor-pointer">
         <span className="block px-4 py-2.5 text-sm font-semibold text-primary bg-primary/5 border border-primary/20 rounded-xl hover:bg-primary/10 transition-colors text-center">
-          {uploading ? 'Uploading...' : 'Upload Documentation'}
+          {processing ? 'Processing...' : 'Upload Documentation'}
         </span>
         <input
           type="file"
           accept="image/*"
           multiple
-          onChange={handleUpload}
+          onChange={handleFiles}
           className="hidden"
-          disabled={uploading}
+          disabled={processing}
         />
       </label>
       {error && <p className="text-xs text-red-500 mt-2">{error}</p>}
+      {hasChanges && (
+        <p className="text-xs text-amber-600 mt-2">
+          Unsaved changes — click &quot;Update Event&quot; to save, or &quot;Cancel&quot; to discard.
+        </p>
+      )}
     </div>
   )
 }

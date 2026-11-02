@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { supabase } from '../../lib/supabase'
 import slugify from 'slugify'
 import { ImageUploader, DocumentationUploader } from '../../components/admin/EventFormParts'
+import type { StagedDocFile } from '../../components/admin/EventFormParts'
 import { Plus, X, Save, ArrowLeft } from 'lucide-react'
 import type { EventStatus, EventDocumentation } from '../../types'
 
@@ -35,8 +36,19 @@ export default function EventForm() {
   const [dates, setDates] = useState<EventDateForm[]>([{ event_date: '' }])
   const [routes, setRoutes] = useState<EventRouteForm[]>([{ city: '', price: 0, price_max: null, meeting_point: '' }])
   const [documentation, setDocumentation] = useState<EventDocumentation[]>([])
+  const [stagedDocs, setStagedDocs] = useState<StagedDocFile[]>([])
+  const [deletedDocIds, setDeletedDocIds] = useState<string[]>([])
   const [saving, setSaving] = useState(false)
   const [loading, setLoading] = useState(isEdit)
+
+  const stagedDocsRef = useRef<StagedDocFile[]>([])
+  stagedDocsRef.current = stagedDocs
+
+  useEffect(() => {
+    return () => {
+      stagedDocsRef.current.forEach((s) => URL.revokeObjectURL(s.previewUrl))
+    }
+  }, [])
 
   useEffect(() => {
     if (isEdit && id) {
@@ -148,6 +160,57 @@ export default function EventForm() {
           }))
         )
       }
+    }
+
+    if (isEdit && id) {
+      if (deletedDocIds.length > 0) {
+        await supabase.from('event_documentation').delete().in('id', deletedDocIds)
+      }
+
+      const failedStaged: StagedDocFile[] = []
+      const baseOrder = documentation.filter((d) => !deletedDocIds.includes(d.id)).length
+
+      for (let i = 0; i < stagedDocs.length; i++) {
+        const staged = stagedDocs[i]
+        try {
+          const filePath = `${id}/documentation/${Date.now()}-${staged.file.name}`
+          const { error } = await supabase.storage
+            .from('events')
+            .upload(filePath, staged.file, { upsert: true })
+
+          if (error) {
+            failedStaged.push(staged)
+          } else {
+            const { data } = supabase.storage.from('events').getPublicUrl(filePath)
+            const { error: insertError } = await supabase.from('event_documentation').insert({
+              event_id: id,
+              image_url: data.publicUrl,
+              caption: staged.file.name,
+              display_order: baseOrder + i,
+            })
+            if (insertError) failedStaged.push(staged)
+          }
+        } catch {
+          failedStaged.push(staged)
+        }
+      }
+
+      if (failedStaged.length > 0) {
+        const failedIds = new Set(failedStaged.map((s) => s.id))
+        stagedDocs.forEach((s) => {
+          if (!failedIds.has(s.id)) URL.revokeObjectURL(s.previewUrl)
+        })
+        setStagedDocs(failedStaged)
+        setSaving(false)
+        alert(
+          `Failed to save documentation images: ${failedStaged.map((s) => s.file.name).join(', ')}. Please try again.`
+        )
+        return
+      }
+
+      stagedDocs.forEach((s) => URL.revokeObjectURL(s.previewUrl))
+      setStagedDocs([])
+      setDeletedDocIds([])
     }
 
     setSaving(false)
@@ -383,15 +446,17 @@ export default function EventForm() {
         {isEdit && id && (
           <div className="bg-card rounded-xl border border-gray-100 p-4 sm:p-5">
             <DocumentationUploader
-              eventId={id}
               docs={documentation}
-              onUpdate={async () => {
-                const { data } = await supabase
-                  .from('events')
-                  .select('event_documentation(*)')
-                  .eq('id', id)
-                  .single()
-                if (data) setDocumentation(data.event_documentation || [])
+              deletedIds={deletedDocIds}
+              stagedFiles={stagedDocs}
+              onAdd={(files) => setStagedDocs((prev) => [...prev, ...files])}
+              onDelete={(docId) => setDeletedDocIds((prev) => [...prev, docId])}
+              onDeleteStaged={(stagedId) => {
+                setStagedDocs((prev) => {
+                  const target = prev.find((s) => s.id === stagedId)
+                  if (target) URL.revokeObjectURL(target.previewUrl)
+                  return prev.filter((s) => s.id !== stagedId)
+                })
               }}
             />
           </div>
