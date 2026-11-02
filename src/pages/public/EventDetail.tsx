@@ -124,7 +124,9 @@ export default function EventDetail() {
 
         {Object.keys(routesByCity).length > 0 && (
           <div className="bg-card rounded-xl p-5 shadow-sm border border-gray-100 mb-5">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">Routes & Pricing</h2>
+            <h2 className="text-lg font-bold text-gray-900 mb-4">
+              {event.status === 'past' ? 'Routes' : 'Routes & Pricing'}
+            </h2>
             <div className="space-y-4">
               {Object.entries(routesByCity).map(([city, routes]) => (
                 <div key={city}>
@@ -138,15 +140,17 @@ export default function EventDetail() {
                         key={route.id}
                         className="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-surface rounded-lg border border-gray-100"
                       >
-                        <div className="flex items-center gap-3 mb-2 sm:mb-0">
+                        <div className="flex items-center gap-3">
                           <div>
                             <p className="text-xs text-gray-500">{route.meeting_point}</p>
                           </div>
                         </div>
-                        <div className="flex items-center gap-1.5 text-primary font-bold text-sm">
-                          IDR {route.price.toLocaleString()}
-                          {route.price_max != null && <> – {route.price_max.toLocaleString()}</>}
-                        </div>
+                        {event.status !== 'past' && (
+                          <div className="flex items-center gap-1.5 text-primary font-bold text-sm">
+                            IDR {route.price.toLocaleString()}
+                            {route.price_max != null && <> – {route.price_max.toLocaleString()}</>}
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
