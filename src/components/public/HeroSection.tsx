@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Calendar, MapPin, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowRight, Calendar, MapPin, ChevronLeft, ChevronRight } from 'lucide-react'
 import { getSupabaseImageUrl } from '../../lib/supabase'
 import type { EventWithDetails } from '../../types'
 
@@ -117,22 +117,17 @@ export default function HeroSection({ events }: HeroSectionProps) {
 
   if (events.length === 0) {
     return (
-      <section className="relative bg-[#1c1c1c] overflow-hidden">
+      <section className="relative bg-[#1c1c1c] overflow-hidden min-h-[380px] flex items-center">
         <div className="absolute inset-0">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 text-center">
-          <div className="inline-flex items-center gap-2 bg-white/10 text-white/90 text-sm font-medium px-4 py-2 rounded-full mb-4 backdrop-blur-sm">
-            <Sparkles size={16} className="text-accent" />
-            Find Your Alonica
-          </div>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-4 leading-tight">
             Explore <span className="text-accent">Unforgettable</span><br />Experiences
           </h1>
-          <p className="text-white/60 max-w-xl mx-auto mb-6">
-            Join exciting events and trips curated just for you.
-            Create memories that last a lifetime.
+          <p className="text-white/50 text-sm font-medium tracking-wide mb-4">
+            Join exciting events and trips curated just for you. Create memories that last a lifetime.
           </p>
           <Link
             to="/events"
