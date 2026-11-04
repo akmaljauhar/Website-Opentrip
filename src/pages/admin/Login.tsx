@@ -139,12 +139,11 @@ export default function Login() {
         </p>
       </div>
 
-      <div className="flex-1 flex flex-col bg-surface px-6 py-8 lg:px-16 lg:py-10">
-        <div className="flex justify-end mb-10">
+      <div className="flex-1 relative flex items-center justify-center bg-surface px-6 py-8 lg:px-16 lg:py-10">
+        <div className="absolute top-8 right-6 lg:top-10 lg:right-16">
           <Logo className="h-11 w-auto" />
         </div>
-        <div className="flex-1 flex items-center justify-center">
-          <div className="w-full max-w-sm">
+        <div className="w-full max-w-sm">
           <p className="text-accent text-[11px] font-semibold uppercase tracking-[0.2em] mb-3">
             Admin Access
           </p>
@@ -203,7 +202,6 @@ export default function Login() {
               {loading ? 'Signing in…' : 'Sign In'}
             </button>
           </form>
-          </div>
         </div>
       </div>
     </div>
