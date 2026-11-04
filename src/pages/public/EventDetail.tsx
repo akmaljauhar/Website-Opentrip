@@ -55,18 +55,19 @@ export default function EventDetail() {
 
   return (
     <div className="bg-surface min-h-screen">
-      <div className="bg-primary relative overflow-hidden">
+      <div className="bg-black relative overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
           {event.banner_url && (
             <img
               src={getSupabaseImageUrl(event.banner_url)}
               alt=""
-              className="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-30"
+              className="absolute inset-0 w-full h-full object-cover opacity-20"
               onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
             />
           )}
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,black_0%,black_25%,rgba(0,0,0,0.15)_65%,transparent_100%)]" />
         </div>
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <Link to="/events" className="inline-flex items-center gap-1.5 text-white/60 hover:text-white text-xs mb-4 transition-colors">

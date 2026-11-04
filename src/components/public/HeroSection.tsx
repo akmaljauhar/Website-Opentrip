@@ -25,10 +25,6 @@ function HeroSlide({ event }: { event: EventWithDetails }) {
       </div>
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <div className="max-w-2xl">
-          <div className="inline-flex items-center gap-2 bg-accent/20 text-accent text-xs font-semibold px-3 py-1.5 rounded-full mb-4 border border-accent/30">
-            <Sparkles size={14} />
-            Featured Event
-          </div>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-3 leading-tight">
             {event.title}
           </h1>
